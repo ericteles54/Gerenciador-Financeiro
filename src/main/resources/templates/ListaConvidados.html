@@ -13,22 +13,29 @@
 </head>
 
 <body>
+	<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Sign Out" />
+	</form>
+
 	<div class="panel panel-default" style="margin: 10px">
 		<div class="panel-heading">
 			<h1 class="panel-title">Lista convidados</h1>
 		</div>
 
 		<div class="panel-body">
-		
-			<form class="form-inline" method="POST" th:object="${convidado}" th:action="@{/convidados}" style="margin: 20px 0">
+
+			<form class="form-inline" method="POST" th:object="${convidado}"
+				th:action="@{/convidados}" style="margin: 20px 0">
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Nome" th:field="*{nome}" />
-					<input type="text" class="form-control" placeholder="Acompanhantes" th:field="*{quantidadeAcompanhantes}" />
+					<input type="text" class="form-control" placeholder="Nome"
+						th:field="*{nome}" /> <input type="text" class="form-control"
+						placeholder="Acompanhantes" th:field="*{quantidadeAcompanhantes}" />
 					<button type="submit" class="btn btn-primary">Adicionar</button>
 				</div>
 			</form>
-			
-		 
+
+
 			<table class="table">
 				<thead>
 					<tr>
