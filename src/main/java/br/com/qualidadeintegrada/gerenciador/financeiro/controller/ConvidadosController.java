@@ -9,7 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.qualidadeintegrada.gerenciador.financeiro.dao.ConvidadosDAO;
 import br.com.qualidadeintegrada.gerenciador.financeiro.model.Convidado;
-import br.com.qualidadeintegrada.gerenciador.financeiro.repository.ConvidadosRepository;
 
 @Controller
 @RequestMapping("/convidados")
