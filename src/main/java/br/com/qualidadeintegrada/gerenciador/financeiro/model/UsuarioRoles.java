@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 public class UsuarioRoles {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
@@ -22,6 +22,18 @@ public class UsuarioRoles {
 	@ManyToOne
 	@JoinColumn(name = "username")
 	private Usuario usuario;
+	
+	
+	public UsuarioRoles() {
+		
+	}
+	
+	public UsuarioRoles(String role, Usuario usuario) {
+		this.role = role;
+		this.usuario = usuario;
+	}
+
+	
 	
 
 	public long getId() {

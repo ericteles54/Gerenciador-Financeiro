@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 public class Usuario {
-
+	
 	@Id	
 	@NotNull
 	private String username;
@@ -20,6 +20,19 @@ public class Usuario {
 	public String getUsername() {
 		return username;
 	}
+	
+	
+	public Usuario () {
+		
+	}
+
+	public Usuario(String username, String password, boolean enabled) {
+		this.username = username;
+		this.password = password;
+		this.enabled = enabled;
+	}
+	
+	
 
 	public void setUsername(String username) {
 		this.username = username;
