@@ -25,6 +25,7 @@
 	</properties>
 
 	<dependencies>
+	
 		<!-- Pacotes básicos -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
