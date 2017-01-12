@@ -6,11 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
 public class Conta {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
@@ -21,15 +23,23 @@ public class Conta {
 	@NotNull
 	private BigDecimal saldo;
 	
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "username")
+	private Usuario usuario;
+	
 	public Conta() {
 		
 	}
 	
-	public Conta(String nome, BigDecimal saldo) {
+	public Conta(String nome, BigDecimal saldo, Usuario usuario) {
 		this.nome = nome;
 		this.saldo = saldo;
+		this.usuario = usuario;
 	}
 
+	
+	
 	public long getId() {
 		return id;
 	}
@@ -53,4 +63,13 @@ public class Conta {
 	public void setSaldo(BigDecimal saldo) {
 		this.saldo = saldo;
 	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}	
+			
 }
