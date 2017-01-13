@@ -85,7 +85,7 @@ CREATE TABLE `transacao` (
   PRIMARY KEY (`id`),
   KEY `FK6968iodq71yxdsg3ctxmnffv1` (`conta_id`),
   CONSTRAINT `FK6968iodq71yxdsg3ctxmnffv1` FOREIGN KEY (`conta_id`) REFERENCES `conta` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,6 +94,7 @@ CREATE TABLE `transacao` (
 
 LOCK TABLES `transacao` WRITE;
 /*!40000 ALTER TABLE `transacao` DISABLE KEYS */;
+INSERT INTO `transacao` VALUES (1,'','2017-01-17 08:17:06','transacao teste',0,34.45,4),(2,'','2017-01-12 17:35:00','transacao teste joao',1,100.23,5),(3,'','2017-01-05 12:45:00','transacao teste eric',1,84.87,6),(4,'\0','2017-01-13 11:13:39','Teste de insert ',0,34.00,6),(5,'\0','2017-01-13 11:15:04','Teste de insert 2',1,45.00,6),(6,'','2017-01-13 11:16:43','Teste de insert 3',0,54.00,6),(7,'\0','2017-01-13 11:26:38','Teste de insert 4',0,66.00,4),(8,'','2017-01-13 11:27:12','Teste de insert 5 BB',1,77.00,6),(9,'\0','2017-01-13 11:27:32','Teste de insert 6 BaBra',0,88.00,4),(10,'','2017-01-13 11:30:22','TEste voltando',0,11111.00,6),(11,'','2017-01-13 11:41:18','Teste de insert Checkbox',0,222.00,6),(12,'\0','2017-01-13 11:41:38','Teeste checkbox 2',1,22.00,4);
 /*!40000 ALTER TABLE `transacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -158,4 +159,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-12 12:44:43
+-- Dump completed on 2017-01-13 12:48:13

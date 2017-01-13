@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Lista de Transacoes</title>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+	crossorigin="anonymous" />
+	
+<!--  jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<!-- Bootstrap Date-Picker Plugin -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>	
+	
+</head>
+
+<body>
+	<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Sign Out" />
+	</form>
+	
+	<div class="panel panel-default" style="margin: 10px">
+		<div class="panel-heading">
+			<h1 class="panel-title">Lista de transações</h1>
+		</div>
+		
+		<div class="panel-body">
+			<form class="form-inline" method="POST" th:object="${transacao}"
+				th:action="@{/transacoes}" style="margin: 20px 0">
+				
+				<div class="form-group">
+										
+					<select class="form-control" th:field="*{conta}">
+						<option th:each="conta : ${contas}"
+								th:value="${conta.id}"
+								th:text="${conta.nome}">
+						</option>
+					</select>
+						
+					
+					<div class="form-group"> <!-- Date input -->
+        			<label class="control-label" for="date">Date</label>
+        			<input class="form-control" id="date" name="date" placeholder="YYYY/MM/DD HH:MM:SS" type="text"/>
+      				</div>
+
+					
+					
+					
+					
+					     	   				
+			<!--    <input type="text" class="form-control" placeholder="Data" th:field="*{data}" />      -->					
+					<input type="text" class="form-control" placeholder="Descrição" th:field="*{descricao}" />
+					<input type="text" class="form-control" placeholder="Valor" th:field="*{valor}" />
+			 		<input type="text" class="form-control" placeholder="Tipo" th:field="*{tipoTransacao}" />			 				
+					<label class="checkbox-inline"><input type="checkbox" title="Consolidada" name="consolidada" th:field="*{consolidada}" />Consolidada</label>
+					
+					<button type="submit" class="btn btn-primary">Adicionar</button>
+				</div>
+			</form>
+			
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Conta</th>
+						<th>Data</th>
+						<th>Descrição</th>
+						<th>Valor</th>
+						<th>Tipo</th>
+						<th>Consolidada</th>						
+					</tr>						
+				</thead>
+				<tbody>
+					<tr th:each="transacao : ${transacoes}">
+						<td th:text="${transacao.conta.nome}"></td>
+						<td th:text="${transacao.data}"></td>
+						<td th:text="${transacao.descricao}"></td>											
+						<td>R$ <span th:text="${transacao.valor}"></span></td>
+						<td th:text="${transacao.tipoTransacao}"></td>
+						<td th:text="${transacao.consolidada}"></td>								
+					</tr>
+				</tbody>
+			</table>			
+		</div>
+	</div>
+	
+	
+	
+	
+	<script>
+    $(document).ready(function(){
+      var date_input=$('input[name="date"]'); //our date input has the name "date"
+      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+      var options={
+        format: 'yyyy-mm-dd hh:mm:ss',
+        container: container,
+        todayHighlight: true,
+        autoclose: true,
+      };
+      date_input.datepicker(options);
+    })
+	</script>
+</body>
+</html>

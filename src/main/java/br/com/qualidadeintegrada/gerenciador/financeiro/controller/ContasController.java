@@ -20,7 +20,7 @@ public class ContasController {
 	
 	@Autowired
 	private ContasDAO contasDAO;
-	
+			
 	@Autowired
 	private UsuariosDAO usuariosDAO;
 
@@ -28,7 +28,7 @@ public class ContasController {
 	@ResponseBody
 	public ModelAndView listar() {
 		
-		Usuario usuarioTmp = this.getUsuarioLogado();
+		Usuario usuarioTmp = this.getUsuarioLogado();		
 		
 		ModelAndView mv = new ModelAndView("ListaContas");		
 		mv.addObject("contas", this.contasDAO.findContasByUsuario(usuarioTmp));
@@ -56,4 +56,5 @@ public class ContasController {
 		
 		return usuarioTmp;
 	}
+	
 }

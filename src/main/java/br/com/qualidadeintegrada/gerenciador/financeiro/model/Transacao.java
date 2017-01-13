@@ -36,6 +36,7 @@ public class Transacao {
 	@ManyToOne
 	private Conta conta;
 	
+	
 	public Transacao() {
 		
 	}
