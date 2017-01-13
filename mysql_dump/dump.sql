@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.53, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.16, for Linux (x86_64)
 --
 -- Host: localhost    Database: gerfinan
 -- ------------------------------------------------------
--- Server version	5.5.53-0ubuntu0.14.04.1
+-- Server version	5.7.16-0ubuntu0.16.10.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -30,7 +30,7 @@ CREATE TABLE `conta` (
   PRIMARY KEY (`id`),
   KEY `FKq872bs93677sbx864oayoe3jv` (`username`),
   CONSTRAINT `FKq872bs93677sbx864oayoe3jv` FOREIGN KEY (`username`) REFERENCES `usuario` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `conta` (
 
 LOCK TABLES `conta` WRITE;
 /*!40000 ALTER TABLE `conta` DISABLE KEYS */;
-INSERT INTO `conta` VALUES (4,'Banco do Brasil',491.00,'eric'),(5,'Santander',1500.00,'joao'),(6,'Bradesco',1000.00,'eric');
+INSERT INTO `conta` VALUES (4,'Banco do Brasil',186.55,'eric'),(5,'Santander',1500.00,'joao'),(6,'Bradesco',-12002.13,'eric'),(7,'Teste',804.13,'eric');
 /*!40000 ALTER TABLE `conta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,7 +85,7 @@ CREATE TABLE `transacao` (
   PRIMARY KEY (`id`),
   KEY `FK6968iodq71yxdsg3ctxmnffv1` (`conta_id`),
   CONSTRAINT `FK6968iodq71yxdsg3ctxmnffv1` FOREIGN KEY (`conta_id`) REFERENCES `conta` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +94,7 @@ CREATE TABLE `transacao` (
 
 LOCK TABLES `transacao` WRITE;
 /*!40000 ALTER TABLE `transacao` DISABLE KEYS */;
-INSERT INTO `transacao` VALUES (1,'','2017-01-17 08:17:06','transacao teste',0,34.45,4),(2,'','2017-01-12 17:35:00','transacao teste joao',1,100.23,5),(3,'','2017-01-05 12:45:00','transacao teste eric',1,84.87,6),(4,'\0','2017-01-13 11:13:39','Teste de insert ',0,34.00,6),(5,'\0','2017-01-13 11:15:04','Teste de insert 2',1,45.00,6),(6,'','2017-01-13 11:16:43','Teste de insert 3',0,54.00,6),(7,'\0','2017-01-13 11:26:38','Teste de insert 4',0,66.00,4),(8,'','2017-01-13 11:27:12','Teste de insert 5 BB',1,77.00,6),(9,'\0','2017-01-13 11:27:32','Teste de insert 6 BaBra',0,88.00,4),(10,'','2017-01-13 11:30:22','TEste voltando',0,11111.00,6),(11,'','2017-01-13 11:41:18','Teste de insert Checkbox',0,222.00,6),(12,'\0','2017-01-13 11:41:38','Teeste checkbox 2',1,22.00,4);
+INSERT INTO `transacao` VALUES (1,'','2017-01-17 08:17:06','transacao teste',0,34.45,4),(2,'','2017-01-12 17:35:00','transacao teste joao',1,100.23,5),(3,'','2017-01-05 12:45:00','transacao teste eric',1,84.87,6),(4,'\0','2017-01-13 11:13:39','Teste de insert ',0,34.00,6),(5,'\0','2017-01-13 11:15:04','Teste de insert 2',1,45.00,6),(6,'','2017-01-13 11:16:43','Teste de insert 3',0,54.00,6),(7,'\0','2017-01-13 11:26:38','Teste de insert 4',0,66.00,4),(8,'','2017-01-13 11:27:12','Teste de insert 5 BB',1,77.00,6),(9,'\0','2017-01-13 11:27:32','Teste de insert 6 BaBra',0,88.00,4),(10,'','2017-01-13 11:30:22','TEste voltando',0,11111.00,6),(11,'','2017-01-13 11:41:18','Teste de insert Checkbox',0,222.00,6),(12,'\0','2017-01-13 11:41:38','Teeste checkbox 2',1,22.00,4),(13,'','2017-01-13 16:54:16','Teste da data',1,221.00,4),(14,'','2017-01-10 00:00:00','Teste da data2',0,777.00,6),(15,'','2017-01-13 00:00:00','Teste dropdown tipoTransacao',2,444.00,4),(16,'','2017-01-11 00:00:00','Teste com utilites',2,542.00,4),(17,'','2017-01-10 00:00:00','Salario',1,1000.00,7),(18,'','2017-01-11 00:00:00','Aluguel',0,350.00,7),(19,'','2017-01-12 00:00:00','Bonus',1,200.00,7),(20,'','2017-01-13 00:00:00','Farmacia',0,45.87,7);
 /*!40000 ALTER TABLE `transacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -159,4 +159,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-13 12:48:13
+-- Dump completed on 2017-01-13 20:34:49

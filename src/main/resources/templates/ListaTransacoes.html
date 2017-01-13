@@ -52,11 +52,11 @@
 				</div>
 			</form>
 			
-			<table class="table table-condensed table-ordered">
+			<table class="table table-responsive table-condensed table-striped">
 				<thead>
-					<tr>
-						<th>Conta</th>
+					<tr>						
 						<th>Data</th>
+						<th>Conta</th>
 						<th>Descrição</th>
 						<th>Valor</th>
 						<th>Tipo</th>
@@ -64,9 +64,9 @@
 					</tr>						
 				</thead>
 				<tbody>
-					<tr th:each="transacao : ${transacoes}">
-						<td th:text="${transacao.conta.nome}"></td>
+					<tr th:each="transacao : ${transacoes}">						
 						<td th:text="${transacao.data}"></td>
+						<td th:text="${transacao.conta.nome}"></td>
 						<td th:text="${transacao.descricao}"></td>											
 						<td>R$ <span th:text="${transacao.valor}"></span></td>
 						<td th:text="${transacao.tipoTransacao}"></td>
