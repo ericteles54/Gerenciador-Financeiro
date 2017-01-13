@@ -16,5 +16,8 @@ public interface TransacoesDAO extends JpaRepository<Transacao, Long> {
 	
 	@Query("select t from Transacao t where t.conta = :conta")
 	List<Transacao> findTransacoesByConta(@Param("conta") Conta conta);
+	
+	@Query("select t from Transacao t where t.consolidada = true and t.conta = :conta")
+	List<Transacao> findTransacoesConsolidadasByConta(@Param("conta") Conta conta);
 
 }

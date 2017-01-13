@@ -6,25 +6,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width" />
 <title>Lista de Transacoes</title>
-
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
 	crossorigin="anonymous" />
-	
-<!--  jQuery -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-
-<!-- Bootstrap Date-Picker Plugin -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>	
-	
 </head>
 
 <body>
 	<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
 	<form th:action="@{/logout}" method="post">
-		<input type="submit" value="Sign Out" />
+		<input type="submit" value="Sign Out" />		
 	</form>
 	
 	<div class="panel panel-default" style="margin: 10px">
@@ -43,30 +34,25 @@
 								th:value="${conta.id}"
 								th:text="${conta.nome}">
 						</option>
-					</select>
-						
-					
-					<div class="form-group"> <!-- Date input -->
-        			<label class="control-label" for="date">Date</label>
-        			<input class="form-control" id="date" name="date" placeholder="YYYY/MM/DD HH:MM:SS" type="text"/>
-      				</div>
-
-					
-					
-					
-					
+					</select>					
 					     	   				
-			<!--    <input type="text" class="form-control" placeholder="Data" th:field="*{data}" />      -->					
+					<input type="text" class="form-control" placeholder="Data" th:field="*{data}" />				
 					<input type="text" class="form-control" placeholder="Descrição" th:field="*{descricao}" />
-					<input type="text" class="form-control" placeholder="Valor" th:field="*{valor}" />
-			 		<input type="text" class="form-control" placeholder="Tipo" th:field="*{tipoTransacao}" />			 				
+					<input type="text" class="form-control" placeholder="Valor" th:field="*{valor}" />			 		
+			 		<select class="form-control" th:field="*{tipoTransacao}">
+			 			<option th:each="tipoTransacao : ${tiposTransacao}"
+			 					th:value="${tipoTransacao}"
+			 					th:text="${tipoTransacao}">
+			 			</option>
+			 		</select>
+			 					 				
 					<label class="checkbox-inline"><input type="checkbox" title="Consolidada" name="consolidada" th:field="*{consolidada}" />Consolidada</label>
 					
 					<button type="submit" class="btn btn-primary">Adicionar</button>
 				</div>
 			</form>
 			
-			<table class="table">
+			<table class="table table-condensed table-ordered">
 				<thead>
 					<tr>
 						<th>Conta</th>
@@ -91,21 +77,5 @@
 		</div>
 	</div>
 	
-	
-	
-	
-	<script>
-    $(document).ready(function(){
-      var date_input=$('input[name="date"]'); //our date input has the name "date"
-      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-      var options={
-        format: 'yyyy-mm-dd hh:mm:ss',
-        container: container,
-        todayHighlight: true,
-        autoclose: true,
-      };
-      date_input.datepicker(options);
-    })
-	</script>
 </body>
 </html>

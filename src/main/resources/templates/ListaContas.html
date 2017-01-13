@@ -28,8 +28,7 @@
 				th:action="@{/contas}" style="margin: 20px 0">
 				
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Nome" th:field="*{nome}" />
-					<input type="text" class="form-control" placeholder="Saldo" th:field="*{saldo}" />					
+					<input type="text" class="form-control" placeholder="Nome" th:field="*{nome}" />										
 					
 					<button type="submit" class="btn btn-primary">Adicionar</button>
 				</div>
@@ -46,7 +45,7 @@
 					<tr th:each="conta : ${contas}">
 						<td th:text="${conta.nome}"></td>
 					<!--     <td th:text="${conta.saldo}"></td>  -->
-						<td>R$ <span th:text="${conta.saldo}"></span></td>								
+						<td>R$ <span th:text="${conta.saldo}"></span></td>							
 					</tr>
 				</tbody>
 			</table>			

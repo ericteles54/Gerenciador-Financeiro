@@ -1,37 +1,43 @@
 package br.com.qualidadeintegrada.gerenciador.financeiro.controller;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.com.qualidadeintegrada.gerenciador.financeiro.dao.ContasDAO;
-import br.com.qualidadeintegrada.gerenciador.financeiro.dao.UsuariosDAO;
 import br.com.qualidadeintegrada.gerenciador.financeiro.model.Conta;
 import br.com.qualidadeintegrada.gerenciador.financeiro.model.Usuario;
+import br.com.qualidadeintegrada.gerenciador.financeiro.utils.ContaUtility;
+import br.com.qualidadeintegrada.gerenciador.financeiro.utils.UsuarioUtility;
 
 @Controller
 @RequestMapping("/contas")
 public class ContasController {
 	
 	@Autowired
-	private ContasDAO contasDAO;
+	private ContaUtility contaUtility;
 			
 	@Autowired
-	private UsuariosDAO usuariosDAO;
+	private UsuarioUtility usuarioUtility;
 
 	@RequestMapping
 	@ResponseBody
 	public ModelAndView listar() {
 		
-		Usuario usuarioTmp = this.getUsuarioLogado();		
+		Usuario usuarioTmp = this.usuarioUtility.getUsuarioLogado();
+		
+		List<Conta> contasUsuario = new ArrayList<Conta>();
+		contasUsuario = this.contaUtility.buscarContasPorUsuario(usuarioTmp);
+		contasUsuario = this.contaUtility.atualizaSaldoContas(contasUsuario);
 		
 		ModelAndView mv = new ModelAndView("ListaContas");		
-		mv.addObject("contas", this.contasDAO.findContasByUsuario(usuarioTmp));
+		mv.addObject("contas", contasUsuario);
 		mv.addObject(new Conta());
 		
 		return mv;
@@ -41,20 +47,16 @@ public class ContasController {
 	public String salvar(Conta conta) {
 		
 		// Associa usuário (username) à Conta
-		Usuario usuarioTmp = this.getUsuarioLogado();
+		Usuario usuarioTmp = this.usuarioUtility.getUsuarioLogado();
 		conta.setUsuario(usuarioTmp);
 		
-		this.contasDAO.save(conta);
+		if(conta.getSaldo() == null) {
+			conta.setSaldo(BigDecimal.ZERO);
+		}
+		
+		this.contaUtility.salvar(conta);
 		
 		return "redirect:/contas";
-	}
-	
-	private Usuario getUsuarioLogado() {
-		
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Usuario usuarioTmp = usuariosDAO.findOne(auth.getName());
-		
-		return usuarioTmp;
 	}
 	
 }
