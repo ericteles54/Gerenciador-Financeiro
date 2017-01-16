@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -25,17 +26,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
+		
+		http.authorizeRequests().antMatchers("/css/unauth/**").permitAll()
 				.antMatchers("/", "/home")
 				.access("hasRole('ROLE_USER')")
 				.anyRequest()
 				.authenticated()
 				.and()
 				.formLogin()
-				.loginPage("/login")
+				.loginPage("/login")				
 				.permitAll()
 				.and()
-				.logout()
-				.permitAll();
+				//.logout()
+				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
+				//.permitAll();
 	}	
 }
