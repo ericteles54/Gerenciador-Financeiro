@@ -16,6 +16,10 @@
 <!-- Custom styles for this template -->
 <link href="css/navbar-fixed-top.css" rel="stylesheet" />
 
+
+<!-- Custom styles for Datatable -->
+<link href="css/dataTables.bootstrap.min.css" rel="stylesheet" />
+
 </head>
 
 <body>
@@ -31,13 +35,12 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Project name</a>
+				<a class="navbar-brand" href="#">Gerenciador Financeiro</a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
-					<li><a href="#about">About</a></li>
-					<li><a href="#contact">Contact</a></li>
+					<li><a href="/contas">Contas</a></li>
+					<li><a href="/transacoes">Transacoes</a></li>					
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -51,11 +54,8 @@
 							<li><a href="#">One more separated link</a></li>
 						</ul></li>
 				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="../navbar/">Default</a></li>
-					<li><a href="../navbar-static-top/">Static top</a></li>
-					<li class="active"><a href="./">Fixed top <span
-							class="sr-only">(current)</span></a></li>
+				<ul class="nav navbar-nav navbar-right">					
+					<li><a href="#" th:text="${olaUsuario}"></a></li>		
 					<li><a href="./logout">Sign out</a></li>
 				</ul>
 			</div>
@@ -67,16 +67,10 @@
 
 		<!-- Main component for a primary marketing message or call to action -->
  		<div class="jumbotron">
-			<h1 th:inline="text">Hello
-				[[${#httpServletRequest.remoteUser}]]!</h1>
-			<form th:action="@{/logout}" method="post">
-				<input type="submit" value="Sign Out" />
-			</form>
-
 
 			<div class="panel panel-default" style="margin: 10px">
 				<div class="panel-heading">
-					<h1 class="panel-title">Lista de contas</h1>
+					<h3 class="panel-title">Lista de contas</h3>
 				</div>
 
 				<div class="panel-body">
@@ -89,21 +83,29 @@
 
 							<button type="submit" class="btn btn-primary">Adicionar</button>
 						</div>
-					</form>
-
-					<table class="table">
+					</form>							
+					
+					
+					<table id="contas" class="table table-striped table-bordered" cellspacing="0" width="100%">
 						<thead>
-							<tr>
-								<th>Nome</th>
-								<th>Saldo</th>
-							</tr>
-						</thead>
-						<tbody>
+				            <tr>
+				                <th>Nome</th>
+				                <th>Saldo</th>				                
+				            </tr>
+        				</thead>
+        				<tfoot>
+				            <tr>
+				                <th>Nome</th>
+				                <th>Saldo</th>				                
+				            </tr>
+				        </tfoot>
+				        
+				        <tbody>
 							<tr th:each="conta : ${contas}">
 								<td th:text="${conta.nome}"></td>								
 								<td>R$ <span th:text="${conta.saldo}"></span></td>
 							</tr>
-						</tbody>
+						</tbody>		        			        
 					</table>
 				</div>
 			</div>
@@ -120,5 +122,18 @@
 	<!-- jQuery (necessario para os plugins Javascript do Bootstrap) -->
 	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+	
+	<script src="js/jquery.dataTables.min.js"></script>
+	<script src="js/dataTables.bootstrap.min.js"></script>
+	
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+		    var table = $('#contas').DataTable();
+		    new $.fn.dataTable.FixedHeader( table, {
+		        alwaysCloneTop: true
+		    });
+		} );
+	</script>
 </body>
 </html>

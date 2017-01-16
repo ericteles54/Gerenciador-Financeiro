@@ -34,10 +34,12 @@ public class TransacoesController {
 	@RequestMapping
 	public ModelAndView listar() {
 		
-		Usuario usaurioTmp = this.usuarioUtility.getUsuarioLogado();
+		Usuario usuarioTmp = this.usuarioUtility.getUsuarioLogado();
+		
+		String olaUsuario = "Olá " + usuarioTmp.getUsername() + "!";
 		
 		List<Conta> contasUsuario = new ArrayList<Conta>();
-		contasUsuario = this.contaUtility.buscarContasPorUsuario(usaurioTmp);
+		contasUsuario = this.contaUtility.buscarContasPorUsuario(usuarioTmp);
 				
 		List<Transacao> transacoesUsuario = new ArrayList<Transacao>();
 		for(Conta conta : contasUsuario) {
@@ -45,6 +47,7 @@ public class TransacoesController {
 		}
 		
 		ModelAndView mv = new ModelAndView("ListaTransacoes");
+		mv.addObject("olaUsuario", olaUsuario);
 		mv.addObject("transacoes", transacoesUsuario);
 		mv.addObject("contas", contasUsuario);
 		mv.addObject("tiposTransacao", TipoTransacao.values());

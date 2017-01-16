@@ -32,11 +32,14 @@ public class ContasController {
 		
 		Usuario usuarioTmp = this.usuarioUtility.getUsuarioLogado();
 		
+		String olaUsuario = "Olá " + usuarioTmp.getUsername() + "!";
+		
 		List<Conta> contasUsuario = new ArrayList<Conta>();
 		contasUsuario = this.contaUtility.buscarContasPorUsuario(usuarioTmp);
 		contasUsuario = this.contaUtility.atualizaSaldoContas(contasUsuario);
 		
-		ModelAndView mv = new ModelAndView("ListaContas");		
+		ModelAndView mv = new ModelAndView("ListaContas");
+		mv.addObject("olaUsuario", olaUsuario);
 		mv.addObject("contas", contasUsuario);
 		mv.addObject(new Conta());
 		
