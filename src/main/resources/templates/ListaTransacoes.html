@@ -117,7 +117,8 @@
 								<th>Descrição</th>
 								<th>Valor</th>
 								<th>Tipo</th>
-								<th>Consolidada</th>						
+								<th>Consolidada</th>
+								<th>Ação</th>						
 							</tr>						
 						</thead>
 						<tbody>
@@ -127,7 +128,13 @@
 								<td th:text="${transacao.descricao}"></td>											
 								<td>R$ <span th:text="${transacao.valor}"></span></td>
 								<td th:text="${transacao.tipoTransacao}"></td>
-								<td th:text="${transacao.consolidada}"></td>								
+								<td th:text="${transacao.consolidada}"></td>
+								<td>
+									<form method="POST" th:action="@{/transacoes/delete}">
+										<input type="hidden" name="id" id="id" th:value="${transacao.id}" />
+										<button class="btn btn-primary" type="submit" name="submit" value="value">Remover</button>
+									</form>
+								</td>								
 							</tr>
 						</tbody>		        			        
 					</table>

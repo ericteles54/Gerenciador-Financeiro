@@ -34,6 +34,9 @@ public class ContaUtility {
 		this.contasDAO.save(conta);
 	}
 	
+	public void deletar(Long contaId) {
+		this.contasDAO.delete(contaId);
+	}
 	
 	
 	
@@ -46,6 +49,11 @@ public class ContaUtility {
 		
 		return this.contasDAO.findContasByUsuario(usuario); 
 		
+	}
+	
+	public Conta buscarContaPorId(Long id) {
+		
+		return this.contasDAO.findOne(id);
 	}
 	
 	

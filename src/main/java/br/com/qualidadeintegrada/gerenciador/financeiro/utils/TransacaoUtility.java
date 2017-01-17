@@ -25,6 +25,11 @@ public class TransacaoUtility {
 		this.transacoesDAO.save(transacao);		
 	}
 	
+	public void deletar(Long transacaoId) {
+		
+		this.transacoesDAO.delete(transacaoId);
+	}
+	
 	
 	
 	
