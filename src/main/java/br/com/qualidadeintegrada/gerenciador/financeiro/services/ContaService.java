@@ -1,4 +1,4 @@
-package br.com.qualidadeintegrada.gerenciador.financeiro.utils;
+package br.com.qualidadeintegrada.gerenciador.financeiro.services;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -14,13 +14,13 @@ import br.com.qualidadeintegrada.gerenciador.financeiro.model.Transacao;
 import br.com.qualidadeintegrada.gerenciador.financeiro.model.Usuario;
 
 @Service
-public class ContaUtility {
+public class ContaService {
 	
 	@Autowired
 	private ContasDAO contasDAO;
 	
 	@Autowired
-	private TransacaoUtility transacaoUtility;
+	private TransacaoService transacaoUtility;
 	
 	
 	

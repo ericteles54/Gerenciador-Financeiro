@@ -1,4 +1,4 @@
-package br.com.qualidadeintegrada.gerenciador.financeiro.utils;
+package br.com.qualidadeintegrada.gerenciador.financeiro.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -9,7 +9,7 @@ import br.com.qualidadeintegrada.gerenciador.financeiro.dao.UsuariosDAO;
 import br.com.qualidadeintegrada.gerenciador.financeiro.model.Usuario;
 
 @Service
-public class UsuarioUtility {
+public class UsuarioService {
 	
 	@Autowired
 	private UsuariosDAO usuariosDAO;

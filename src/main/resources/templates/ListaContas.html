@@ -117,28 +117,6 @@
 				</div>
 			</div>
 		</div>
-		
-		<!-- Modal -->
-		<div class="modal fade" id="alterarModal" role="dialog">
-			<div class="modal-dialog">
-		    
-				<!-- Modal content-->
-		    	<div class="modal-content">
-			    	<div class="modal-header">
-			        	<button type="button" class="close" data-dismiss="modal">&times;</button>
-			        	<h4 class="modal-title">Modal Header</h4>
-			        </div>
-			        <div class="modal-body">
-			        	<p>Some text in the modal.</p>
-			        </div>
-			        <div class="modal-footer">
-			        	<button type="button" class="btn btn-primary" data-dismiss="modal">Alterar</button>			        	
-			        </div>
-		      	</div>		      
-		    </div>
-		</div>
-
-
 
 	</div><!-- /container -->
 
@@ -164,33 +142,6 @@
 			});
 		});
 	</script>
-	
-<!-- 	
-	<script type="text/javascript">
-	$(".btn[data-target='#alterarModal']").click(function() {
-	       var columnHeadings = $("thead th").map(function() {
-	                 return $(this).text();
-	              }).get();
-	       columnHeadings.pop();
-	       var columnValues = $(this).parent().siblings().map(function() {
-	                 return $(this).text();
-	       }).get();
-		  var modalBody = $('<div id="modalContent"></div>');
-		  var modalForm = $('<form role="form" name="modalForm" th:action="@{/contas/delete}" method="POST"></form>');
-		  $.each(columnHeadings, function(i, columnHeader) {
-		       var formGroup = $('<div class="form-group"></div>');
-		       formGroup.append('<label for="'+columnHeader+'">'+columnHeader+'</label>');
-		       formGroup.append('<input class="form-control" name="'+columnHeader+i+'" id="'+columnHeader+i+'" value="'+columnValues[i]+'" />'); 
-		       modalForm.append(formGroup);
-		  });
-		  modalBody.append(modalForm);
-		  $('.modal-body').html(modalBody);
-		});
-		$('.modal-footer .btn-primary').click(function() {
-		   $('form[name="modalForm"]').submit();
-	});
-	</script>
--->
 		
 </body>
 </html>

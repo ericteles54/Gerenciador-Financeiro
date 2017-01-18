@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,18 +17,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.qualidadeintegrada.gerenciador.financeiro.model.Conta;
 import br.com.qualidadeintegrada.gerenciador.financeiro.model.Usuario;
-import br.com.qualidadeintegrada.gerenciador.financeiro.utils.ContaUtility;
-import br.com.qualidadeintegrada.gerenciador.financeiro.utils.UsuarioUtility;
+import br.com.qualidadeintegrada.gerenciador.financeiro.services.ContaService;
+import br.com.qualidadeintegrada.gerenciador.financeiro.services.UsuarioService;
 
 @Controller
 @RequestMapping("/contas")
 public class ContasController {
 	
 	@Autowired
-	private ContaUtility contaUtility;
+	private ContaService contaUtility;
 			
 	@Autowired
-	private UsuarioUtility usuarioUtility;
+	private UsuarioService usuarioUtility;
 
 	@RequestMapping
 	@ResponseBody
@@ -74,7 +75,7 @@ public class ContasController {
 	}
 	
 	@RequestMapping(value = "/alterar", method = RequestMethod.POST)
-	public String alterar(@RequestParam("id")String id, HttpServletRequest request) {
+	public String alterar(@RequestParam("id")String id, HttpServletRequest request, Model model) {
 		
 		Usuario usuarioTmp = this.usuarioUtility.getUsuarioLogado();
 		
@@ -84,6 +85,7 @@ public class ContasController {
 		
 		request.setAttribute("olaUsuario", olaUsuario);
 		request.setAttribute("conta", conta);
+		request.setAttribute("model", model);
 		
 		
 		return "forward:/alterarConta";

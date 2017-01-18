@@ -1,4 +1,4 @@
-package br.com.qualidadeintegrada.gerenciador.financeiro.utils;
+package br.com.qualidadeintegrada.gerenciador.financeiro.services;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import br.com.qualidadeintegrada.gerenciador.financeiro.model.Conta;
 import br.com.qualidadeintegrada.gerenciador.financeiro.model.Transacao;
 
 @Service
-public class TransacaoUtility {
+public class TransacaoService {
 	
 	@Autowired
 	private TransacoesDAO transacoesDAO;

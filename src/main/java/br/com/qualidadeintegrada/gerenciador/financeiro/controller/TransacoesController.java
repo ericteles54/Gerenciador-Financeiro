@@ -14,9 +14,9 @@ import br.com.qualidadeintegrada.gerenciador.financeiro.model.Conta;
 import br.com.qualidadeintegrada.gerenciador.financeiro.model.TipoTransacao;
 import br.com.qualidadeintegrada.gerenciador.financeiro.model.Transacao;
 import br.com.qualidadeintegrada.gerenciador.financeiro.model.Usuario;
-import br.com.qualidadeintegrada.gerenciador.financeiro.utils.ContaUtility;
-import br.com.qualidadeintegrada.gerenciador.financeiro.utils.TransacaoUtility;
-import br.com.qualidadeintegrada.gerenciador.financeiro.utils.UsuarioUtility;
+import br.com.qualidadeintegrada.gerenciador.financeiro.services.ContaService;
+import br.com.qualidadeintegrada.gerenciador.financeiro.services.TransacaoService;
+import br.com.qualidadeintegrada.gerenciador.financeiro.services.UsuarioService;
 
 @Controller
 @RequestMapping("/transacoes")
@@ -24,13 +24,13 @@ public class TransacoesController {
 
 
 	@Autowired
-	private UsuarioUtility usuarioUtility;
+	private UsuarioService usuarioUtility;
 	
 	@Autowired
-	private TransacaoUtility transacaoUtility;
+	private TransacaoService transacaoUtility;
 
 	@Autowired
-	private ContaUtility contaUtility;
+	private ContaService contaUtility;
 
 	@RequestMapping
 	public ModelAndView listar() {

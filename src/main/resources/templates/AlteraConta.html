@@ -61,10 +61,15 @@
 			<!--/.nav-collapse -->
 		</div>
 	</nav>
-
+	
+	<div class="container">
+		<div class="jumbotron">
+		</div>
+	</div>
+<!-- 
 	<div class="container">
 
-		<!-- Main component for a primary marketing message or call to action -->
+		
 		<div class="jumbotron">
 
 			<div class="panel panel-default" style="margin: 10px">
@@ -78,15 +83,15 @@
 
 						<div class="form-group">
 							
-							<input type="text" class="form-control" th:value="${conta.id}" />
-							<!-- 	th:field="*{id}" /> -->
-							<input type="text" class="form-control" th:text="${conta.nome}" th:value="${conta.nome}" />
-							<!-- 	th:field="*{nome}" /> -->
-							<input type="text" class="form-control" th:value="${conta.saldo}" />
-							<!-- 	th:field="*{saldo}" /> -->
-				 			<input type="text" class="form-control" th:value="${conta.usuario}" />
-							<!-- 	th:field="*{usuario}" /> -->
-				
+							<input type="text" class="form-control" th:placeholder="${conta.id}"
+							   	th:field="*{id}" disabled="true"/>
+							<input type="text" class="form-control" th:placeholder="${conta.nome}"
+							 	th:field="*{nome}" />
+							<input type="text" class="form-control" th:placeholder="${conta.saldo}"
+							 	th:field="*{saldo}" disabled="true"/>
+				 			<input type="text" class="form-control" th:placeholder="${conta.usuario.username}"
+							 	th:field="*{usuario.username}" disabled="true"/>
+			
 							<button type="submit" class="btn btn-primary">Alterar</button>
 						</div>
 					</form>				
@@ -97,7 +102,9 @@
 		
 
 
-	</div><!-- /container -->
+	</div>
+ -->
+<!-- /container -->
 
 
 
@@ -111,17 +118,7 @@
 
 	<script src="js/jquery.dataTables.min.js"></script>
 	<script src="js/dataTables.bootstrap.min.js"></script>
-
-
-	<script type="text/javascript">
-		$(document).ready(function() {
-			var table = $('#contas').DataTable();
-			new $.fn.dataTable.FixedHeader(table, {
-				alwaysCloneTop : true
-			});
-		});
-	</script>
 	
-
+		
 </body>
 </html>
