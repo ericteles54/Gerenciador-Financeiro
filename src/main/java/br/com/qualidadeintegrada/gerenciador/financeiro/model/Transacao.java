@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class Transacao {
 	
@@ -27,6 +29,7 @@ public class Transacao {
 	private String descricao;
 	
 	@NotNull
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private Date data;
 	
 	@NotNull

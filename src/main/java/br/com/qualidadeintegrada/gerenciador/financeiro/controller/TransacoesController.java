@@ -24,27 +24,27 @@ public class TransacoesController {
 
 
 	@Autowired
-	private UsuarioService usuarioUtility;
+	private UsuarioService usuarioService;
 	
 	@Autowired
-	private TransacaoService transacaoUtility;
+	private TransacaoService transacaoService;
 
 	@Autowired
-	private ContaService contaUtility;
+	private ContaService contaService;
 
 	@RequestMapping
-	public ModelAndView listar() {
+	public ModelAndView lista() {
 		
-		Usuario usuarioTmp = this.usuarioUtility.getUsuarioLogado();
+		Usuario usuarioTmp = this.usuarioService.getUsuarioLogado();
 		
 		String olaUsuario = "Olá " + usuarioTmp.getUsername() + "!";
 		
 		List<Conta> contasUsuario = new ArrayList<Conta>();
-		contasUsuario = this.contaUtility.buscaContasPorUsuario(usuarioTmp);
+		contasUsuario = this.contaService.buscaContasPorUsuario(usuarioTmp);
 				
 		List<Transacao> transacoesUsuario = new ArrayList<Transacao>();
 		for(Conta conta : contasUsuario) {
-			transacoesUsuario.addAll(this.transacaoUtility.buscarTransacoesPorConta(conta));
+			transacoesUsuario.addAll(this.transacaoService.buscaTransacoesPorConta(conta));
 		}
 		
 		ModelAndView mv = new ModelAndView("ListaTransacoes");
@@ -59,17 +59,17 @@ public class TransacoesController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String salvar(Transacao transacao) {
+	public String salva(Transacao transacao) {
 					
-		this.transacaoUtility.salvar(transacao);
+		this.transacaoService.salva(transacao);
 
 		return "redirect:/transacoes";
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String deletar(@RequestParam("id")String id) {
+	public String deleta(@RequestParam("id")String id) {
 		
-		this.transacaoUtility.deletar(Long.parseLong(id));
+		this.transacaoService.deleta(Long.parseLong(id));
 		
 		return "redirect:/transacoes";
 	}

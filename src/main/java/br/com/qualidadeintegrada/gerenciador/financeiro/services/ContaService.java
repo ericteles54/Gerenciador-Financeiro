@@ -78,7 +78,7 @@ public class ContaService {
 	private BigDecimal calculaSaldo(Conta conta) {
 
 		List<Transacao> transacoes = new ArrayList<Transacao>();
-		transacoes = this.transacaoUtility.buscarTransacoesConsolidadasPorConta(conta);
+		transacoes = this.transacaoUtility.buscaTransacoesConsolidadasPorConta(conta);
 		
 		BigDecimal saldo = new BigDecimal(0);
 		

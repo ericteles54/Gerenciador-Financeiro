@@ -92,7 +92,8 @@
 							<tr>
 								<th>Nome</th>
 								<th>Saldo</th>
-								<th>Ação</th>
+								<th>Editar</th>
+								<th>Remover</th>
 							</tr>
 						</thead>						
 
@@ -100,15 +101,17 @@
 							<tr th:each="conta : ${contas}">
 								<td th:text="${conta.nome}"></td>
 								<td>R$ <span th:text="${conta.saldo}"></span></td>
+								<td>	
+									<form method="POST" th:action="@{/editaConta}">
+										<input type="hidden" name="id" id="id" th:value="${conta.id}" />									
+										<button class="btn btn-primary" type="submit" name="submit" value="value">Editar</button>									
+									</form>																																	
+								</td>
 								<td>
 									<form method="POST" th:action="@{/contas/deleta}">
 										<input type="hidden" name="id" id="id" th:value="${conta.id}" />
 										<button class="btn btn-primary" type="submit" name="submit" value="value">Remover</button>																				
 									</form>
-									<form method="POST" th:action="@{/editaConta}">
-										<input type="hidden" name="id" id="id" th:value="${conta.id}" />									
-										<button class="btn btn-primary" type="submit" name="submit" value="value">Alterar</button>									
-									</form>									
 								</td>								
 							</tr>
 						</tbody>

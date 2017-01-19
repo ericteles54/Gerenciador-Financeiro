@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br" 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"  />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Transações</title>
+
+<!-- Bootstrap CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- Custom styles for this template -->
+<link href="css/navbar-fixed-top.css" rel="stylesheet" />
+
+<!-- Custom styles for Datapicker -->
+<link href="css/datapicker/datepicker.css" rel="stylesheet" />
+
+</head>
+
+<body>
+
+	<!-- Fixed navbar -->
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Gerenciador Financeiro</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="/contas">Contas</a></li>
+					<li><a href="/transacoes">Transacoes</a></li>					
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Dropdown <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li role="separator" class="divider"></li>
+							<li class="dropdown-header">Nav header</li>
+							<li><a href="#">Separated link</a></li>
+							<li><a href="#">One more separated link</a></li>
+						</ul></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">					
+					<li><a href="#" th:text="${olaUsuario}"></a></li>		
+					<li><a href="./logout">Sign out</a></li>
+				</ul>
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+	</nav>
+
+	<div class="container">		
+
+		<!-- Main component for a primary marketing message or call to action -->
+ 		<div class="jumbotron">		
+
+			<div class="panel panel-default" style="margin: 10px">
+				<div class="panel-heading">
+					<h3 class="panel-title">Edição de transação</h3>
+				</div>
+
+				<div class="panel-body">
+					<form class="form-inline" method="POST" th:object="${transacao}"
+						th:action="@{/transacoes}" style="margin: 20px 0">
+
+						<div class="form-group">
+							
+							<input type="hidden" class="form-control" th:value="${transacao.id}"
+						  	   	th:field="*{id}" />
+					 		
+							<select class="form-control" th:field="*{conta}">
+								<option th:each="conta : ${contas}"
+										th:value="${conta.id}"
+										th:text="${conta.nome}">
+								</option>
+							</select>
+					 		
+							<input type="text" class="form-control" id="transacaoData" placeholder="Data" data-date-format="yyyy/mm/dd" th:field="*{data}" />								
+							<input type="text" class="form-control" placeholder="Descrição" th:field="*{descricao}" />
+							<input type="text" class="form-control" placeholder="Valor" th:field="*{valor}" />			 		
+					 		<select class="form-control" th:field="*{tipoTransacao}">
+					 			<option th:each="tipoTransacao : ${tiposTransacao}"
+					 					th:value="${tipoTransacao}"
+					 					th:text="${tipoTransacao}">
+					 			</option>
+					 		</select>
+							 					 				
+							<label class="checkbox-inline"><input type="checkbox" title="Consolidada" name="consolidada" th:field="*{consolidada}" />Consolidada</label>
+								
+							<button type="submit" class="btn btn-primary">Alterar</button>
+
+						</div>
+					</form>
+				</div>					
+			</div>
+		</div>
+	
+  	</div><!-- /container -->
+
+
+
+
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- jQuery (necessario para os plugins Javascript do Bootstrap) -->
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	
+	<script src="js/datapicker/bootstrap-datepicker.js"></script>	
+	
+		
+	<script type="text/javascript">
+		$(document).ready(function () {
+	        $('#transacaoData').datepicker({
+	            format: "yyyy/mm/dd",
+	            language: "pt-BR",
+	            autoclose: true,
+	        }).on('changeDate', function (ev) {
+	        	$(this).datepicker('hide');
+	        });
+	   	});
+	</script>
+</body>
+</html>

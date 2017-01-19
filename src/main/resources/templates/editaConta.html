@@ -68,13 +68,12 @@
 	</div>
  
 	<div class="container">
-
 		
 		<div class="jumbotron">
 
 			<div class="panel panel-default" style="margin: 10px">
 				<div class="panel-heading">
-					<h3 class="panel-title">Alteração de conta</h3>
+					<h3 class="panel-title">Edição de conta</h3>
 				</div>
 
 				<div class="panel-body">
@@ -83,14 +82,10 @@
 
 						<div class="form-group">
 							
-							<input type="text" class="form-control" th:placeholder="${conta.id}" />
-						<!--  	   	th:field="*{id}" disabled="true"/> -->
-							<input type="text" class="form-control" th:placeholder="${conta.nome}" />
-						<!--	 	th:field="*{nome}" /> -->
-							<input type="text" class="form-control" th:placeholder="${conta.saldo}" />
-						<!--	 	th:field="*{saldo}" disabled="true"/> -->
-				 			<input type="text" class="form-control" th:placeholder="${conta.usuario.username}" />
-						<!--	 	th:field="*{usuario.username}" disabled="true"/> -->
+							<input type="hidden" class="form-control" th:field="*{id}" />
+							<input type="text" class="form-control" th:field="*{nome}" />
+							<input type="text" class="form-control" th:field="*{saldo}" readonly="readonly" />
+				 			<input type="hidden" class="form-control" th:field="*{usuario.username}" />
 			
 							<button type="submit" class="btn btn-primary">Alterar</button>
 						</div>

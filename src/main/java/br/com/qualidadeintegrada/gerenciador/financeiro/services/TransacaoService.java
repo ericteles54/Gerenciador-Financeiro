@@ -20,12 +20,12 @@ public class TransacaoService {
 	 * OPERACOES PADRAO COM OBJETO TRANSACAO
 	 */
 	
-	public void salvar(Transacao transacao) {
+	public void salva(Transacao transacao) {
 		
 		this.transacoesDAO.save(transacao);		
 	}
 	
-	public void deletar(Long transacaoId) {
+	public void deleta(Long transacaoId) {
 		
 		this.transacoesDAO.delete(transacaoId);
 	}
@@ -37,14 +37,19 @@ public class TransacaoService {
 	 * BUSCAS COM OBJETO TRANSACAO 
 	 */
 	
-	public List<Transacao> buscarTransacoesPorConta(Conta conta) {
+	public List<Transacao> buscaTransacoesPorConta(Conta conta) {
 		
 		return this.transacoesDAO.findTransacoesByConta(conta);
 	}
 	
-	public List<Transacao> buscarTransacoesConsolidadasPorConta(Conta conta) {
+	public List<Transacao> buscaTransacoesConsolidadasPorConta(Conta conta) {
 		
 		return this.transacoesDAO.findTransacoesConsolidadasByConta(conta);
+	}
+	
+	public Transacao buscaTransacaoPorId(Long id) {
+		
+		return this.transacoesDAO.findOne(id);
 	}
 	
 	
