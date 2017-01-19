@@ -106,6 +106,17 @@
 			<div class="panel panel-default" style="margin: 10px">
 				<div class="panel-heading">
 					<h3 class="panel-title">Lista de transações</h3>
+					<div class="form-group">
+					<form method="POST" th:action="@{/transacoes/selecionaMes}">
+						<select class="form-control" th:field="*{mes}">
+			 				<option th:each="mes : ${mesSelect}"
+			 						th:value="${mes}"
+			 						th:text="${mes}">
+			 				</option>
+			 			</select>
+						<button class="btn btn-primary" type="submit" name="submit" value="value">Selecionar</button>
+					</form>
+					</div>
 				</div>
 
 				<div class="panel-body">					

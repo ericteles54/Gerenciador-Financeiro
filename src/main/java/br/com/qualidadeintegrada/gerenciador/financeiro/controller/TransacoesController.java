@@ -1,7 +1,12 @@
 package br.com.qualidadeintegrada.gerenciador.financeiro.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,25 +40,46 @@ public class TransacoesController {
 	@RequestMapping
 	public ModelAndView lista() {
 		
-		Usuario usuarioTmp = this.usuarioService.getUsuarioLogado();
-		
+		// Recebe usuário logado e cria mensagem de boas vindas
+		Usuario usuarioTmp = this.usuarioService.getUsuarioLogado();		
 		String olaUsuario = "Olá " + usuarioTmp.getUsername() + "!";
 		
+		// Busca todas as contas do usuário logado
 		List<Conta> contasUsuario = new ArrayList<Conta>();
 		contasUsuario = this.contaService.buscaContasPorUsuario(usuarioTmp);
 				
-		List<Transacao> transacoesUsuario = new ArrayList<Transacao>();
+		// Busca todas as transações do usuário
+		List<Transacao> transacoesUsuarioPorMes = new ArrayList<Transacao>();
+		List<Transacao> transacoesUsuarioTodas = new ArrayList<Transacao>();
 		for(Conta conta : contasUsuario) {
-			transacoesUsuario.addAll(this.transacaoService.buscaTransacoesPorConta(conta));
+			transacoesUsuarioTodas.addAll(this.transacaoService.buscaTransacoesPorConta(conta));
+			transacoesUsuarioPorMes.addAll(this.transacaoService.buscaTransacoesPorMesAnoConta(0, 2017, conta));
 		}
+		
+		
+		HashMap<Integer, String> mesesHashMap = new HashMap<Integer,String>();
+		mesesHashMap = this.getMesDeTransacoes(transacoesUsuarioTodas);
+		
+		
+		List<String> meses = new ArrayList<String>();
+		for (Integer key : mesesHashMap.keySet()) {
+            
+            //Capturamos o valor a partir da chave
+            String value = mesesHashMap.get(key);
+            System.out.println(key + " = " + value);
+            meses.add(key + " = " + value);
+		}
+
 		
 		ModelAndView mv = new ModelAndView("ListaTransacoes");
 		mv.addObject("olaUsuario", olaUsuario);
-		mv.addObject("transacoes", transacoesUsuario);
+		mv.addObject("transacoes", transacoesUsuarioPorMes);
 		mv.addObject("contas", contasUsuario);
 		mv.addObject("tiposTransacao", TipoTransacao.values());
+		mv.addObject("mesSelect", meses);
 				
 		mv.addObject(new Transacao());
+		mv.addObject("mes", new String());
 		
 		return mv;
 	}
@@ -73,4 +99,33 @@ public class TransacoesController {
 		
 		return "redirect:/transacoes";
 	}
+	
+	
+	
+	
+	
+	
+	private HashMap<Integer,String> getMesDeTransacoes(List<Transacao> transacoes) {
+		
+		HashMap<Integer,String> meses = new HashMap<Integer,String>();
+		
+		for(Transacao transacao : transacoes) {
+						
+			Locale localeBR = new Locale("pt", "BR");
+			DateFormat fmt = new SimpleDateFormat("MMMM yyyy", localeBR);			
+			String mesString = fmt.format(transacao.getData());
+						
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(transacao.getData());
+			int mesInt = cal.get(Calendar.MONTH);	
+						
+			meses.put(mesInt,mesString);
+		}	
+		
+		//List<String> deduped = meses.stream().distinct().collect(Collectors.toList());
+		
+		//return deduped;
+		return meses;
+	}	
+	
 }
