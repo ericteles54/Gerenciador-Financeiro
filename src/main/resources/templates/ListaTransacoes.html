@@ -107,15 +107,13 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">Lista de transações</h3>
 					<div class="form-group">
-					<form method="POST" th:action="@{/transacoes/selecionaMes}">
-						<select class="form-control" th:field="*{mes}">
-			 				<option th:each="mes : ${mesSelect}"
-			 						th:value="${mes}"
-			 						th:text="${mes}">
+				
+						<select id="selecionaMesAno" class="form-control" th:field="*{mes}" onchange="mostrarMesAnoSelecionado(this)">
+			 				<option th:each="mes : ${meses}"
+			 						th:value="${mes.mesAnoString}"
+			 						th:text="${mes.mesNome}">
 			 				</option>
-			 			</select>
-						<button class="btn btn-primary" type="submit" name="submit" value="value">Selecionar</button>
-					</form>
+			 			</select>				
 					</div>
 				</div>
 
@@ -159,10 +157,15 @@
 				</div>
 			</div>
 		</div>
+			
+		
+		<div ><p id="subViewDivTabelaTransacoes" th:text="${olaUsuario}"></p></div>
 	
   	</div><!-- /container -->
 
 
+	
+	
 
 
 
@@ -197,6 +200,24 @@
 	        	$(this).datepicker('hide');
 	        });
 	   	});
+	</script>
+		
+
+	<script type="text/javascript">		
+	    function mostrarMesAnoSelecionado(mesAnoString) {
+				    				
+			var index = mesAnoString.selectedIndex;
+			var valoeMesAnoString = mesAnoString.options[index].value; 
+				
+			$.ajax({
+	            type: "GET",
+	            url: "/transacoes/mesAno",
+	            data: {"mesAnoString": valoeMesAnoString},            
+	            success: function(response) {	            	
+	                $("#subViewDivTabelaTransacoes").html( response );
+	            }
+	        });
+	    }	   
 	</script>
 </body>
 </html>

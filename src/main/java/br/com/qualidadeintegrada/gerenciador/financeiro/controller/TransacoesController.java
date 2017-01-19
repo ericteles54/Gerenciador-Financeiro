@@ -4,17 +4,23 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.qualidadeintegrada.gerenciador.financeiro.model.AnoMes;
 import br.com.qualidadeintegrada.gerenciador.financeiro.model.Conta;
 import br.com.qualidadeintegrada.gerenciador.financeiro.model.TipoTransacao;
 import br.com.qualidadeintegrada.gerenciador.financeiro.model.Transacao;
@@ -53,30 +59,21 @@ public class TransacoesController {
 		List<Transacao> transacoesUsuarioTodas = new ArrayList<Transacao>();
 		for(Conta conta : contasUsuario) {
 			transacoesUsuarioTodas.addAll(this.transacaoService.buscaTransacoesPorConta(conta));
-			transacoesUsuarioPorMes.addAll(this.transacaoService.buscaTransacoesPorMesAnoConta(0, 2017, conta));
+			transacoesUsuarioPorMes.addAll(this.transacaoService.buscaTransacoesPorMesAnoConta(Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.YEAR), conta));
 		}
 		
+				
 		
-		HashMap<Integer, String> mesesHashMap = new HashMap<Integer,String>();
-		mesesHashMap = this.getMesDeTransacoes(transacoesUsuarioTodas);
-		
-		
-		List<String> meses = new ArrayList<String>();
-		for (Integer key : mesesHashMap.keySet()) {
-            
-            //Capturamos o valor a partir da chave
-            String value = mesesHashMap.get(key);
-            System.out.println(key + " = " + value);
-            meses.add(key + " = " + value);
-		}
-
+		List<AnoMes> meses = new ArrayList<AnoMes>();
+		meses = this.getMesDeTransacoes(transacoesUsuarioTodas);
+						
 		
 		ModelAndView mv = new ModelAndView("ListaTransacoes");
 		mv.addObject("olaUsuario", olaUsuario);
 		mv.addObject("transacoes", transacoesUsuarioPorMes);
 		mv.addObject("contas", contasUsuario);
 		mv.addObject("tiposTransacao", TipoTransacao.values());
-		mv.addObject("mesSelect", meses);
+		mv.addObject("meses", meses);
 				
 		mv.addObject(new Transacao());
 		mv.addObject("mes", new String());
@@ -101,31 +98,120 @@ public class TransacoesController {
 	}
 	
 	
-	
-	
-	
-	
-	private HashMap<Integer,String> getMesDeTransacoes(List<Transacao> transacoes) {
+	@RequestMapping(value = "/mesAno", method = RequestMethod.GET)
+	@ResponseBody	
+	public ModelAndView retornaTransacoesMesAno(HttpServletRequest request) {	
 		
-		HashMap<Integer,String> meses = new HashMap<Integer,String>();
+		AnoMes anoMes = new AnoMes();
+		
+		String mesAnoString = request.getParameter("mesAnoString");
+		System.out.println("String do ajax: " + mesAnoString);
+		
+		String[] mesAnoArray = mesAnoString.split(Pattern.quote(","));
+		anoMes.setMes(Integer.parseInt(mesAnoArray[0]));
+		anoMes.setAno(Integer.parseInt(mesAnoArray[1]));
+		
+		/*
+		System.out.println("########### FUNCAO AJAX TRANSACOES EXECUTADA ###############");
+		System.out.println("Variavel AnoMes recebida: mes:" + anoMes.getMes() + "| ano: " + anoMes.getAno());
+		*/
+		
+		// Recebe usuário logado e cria mensagem de boas vindas
+		Usuario usuarioTmp = this.usuarioService.getUsuarioLogado();		
+		String olaUsuario = "Olá " + usuarioTmp.getUsername() + "!";
+				
+		// Busca todas as contas do usuário logado
+		List<Conta> contasUsuario = new ArrayList<Conta>();
+		contasUsuario = this.contaService.buscaContasPorUsuario(usuarioTmp);
+						
+		// Busca todas as transações do usuário
+		List<Transacao> transacoesUsuarioPorMes = new ArrayList<Transacao>();
+		List<Transacao> transacoesUsuarioTodas = new ArrayList<Transacao>();
+		for(Conta conta : contasUsuario) {
+			transacoesUsuarioTodas.addAll(this.transacaoService.buscaTransacoesPorConta(conta));
+			transacoesUsuarioPorMes.addAll(this.transacaoService.buscaTransacoesPorMesAnoConta(anoMes.getMes(), anoMes.getAno(), conta));
+		}
+		
+		
+		ModelAndView mv = new ModelAndView("TabelaTransacoes");
+		mv.addObject("transacoes", transacoesUsuarioPorMes);
+		
+		return mv;
+	}
+	
+	
+	
+	private List<AnoMes> getMesDeTransacoes(List<Transacao> transacoes) {
+		
+		List<AnoMes> meses = new ArrayList<AnoMes>();		
+		AnoMes anoMes;
 		
 		for(Transacao transacao : transacoes) {
 						
 			Locale localeBR = new Locale("pt", "BR");
-			DateFormat fmt = new SimpleDateFormat("MMMM yyyy", localeBR);			
-			String mesString = fmt.format(transacao.getData());
+			DateFormat fmtMesNome = new SimpleDateFormat("MMMM yyyy", localeBR);
+						
+			String mesString = fmtMesNome.format(transacao.getData());
+			
 						
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(transacao.getData());
-			int mesInt = cal.get(Calendar.MONTH);	
-						
-			meses.put(mesInt,mesString);
+			int mesInt = cal.get(Calendar.MONTH);
+			int anoInt = cal.get(Calendar.YEAR);
+					
+			anoMes = new AnoMes();
+			anoMes.setMes(mesInt);
+			anoMes.setAno(anoInt);
+			anoMes.setMesNome(mesString);
+			anoMes.setMesAnoString(mesInt + "," + anoInt);
+			
+			meses.add(anoMes);
+			
+			/*
+			System.out.println("##### DEBUG Funcao getMesTransacoes #####");
+			System.out.println("Transacao timestamp: " + transacao.getData());
+			System.out.println("anoMes String: " + anoMes.getMesNome());
+			System.out.println("####### FIM DEBUG ##########");
+			System.out.println("##########");
+			System.out.println("##########");
+			System.out.println("##########");
+			*/
 		}	
 		
-		//List<String> deduped = meses.stream().distinct().collect(Collectors.toList());
+		List<AnoMes> deduped = meses.stream().distinct().collect(Collectors.toList());
 		
-		//return deduped;
-		return meses;
+		/*
+		for(AnoMes AnoMes : meses) {
+		System.out.println("Print da lista meses: " + AnoMes.getMesNome());
+		}
+		for(AnoMes AnoMes2 : deduped) {
+		System.out.println("Print da lista deduped: " + AnoMes2.getMesNome());	
+		}
+		*/
+	
+		
+		return deduped;
+		//return meses;
 	}	
+	
+	
+	
+	
+	@RequestMapping(value = "/ajaxtest", method = RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView ajaxtest() {
+		
+		System.out.println("########### FUNCAO EXECUTADA ###############");
+		
+		ModelAndView mv = new ModelAndView("AjaxTransacoes");
+		mv.addObject("olaUsuario", "AjaxOk");
+		
+		return mv;
+	}
+	
+	
+	
+	
+	
 	
 }

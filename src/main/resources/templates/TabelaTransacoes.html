@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br" 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"  />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Transações</title>
+
+<!-- Bootstrap CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- Custom styles for this template -->
+<link href="css/navbar-fixed-top.css" rel="stylesheet" />
+
+
+<!-- Custom styles for Datatable -->
+<link href="css/datatable/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+
+<!-- Custom styles for Datapicker -->
+<link href="css/datapicker/datepicker.css" rel="stylesheet" />
+
+</head>
+
+<body>
+
+ 	
+				
+
+				<div class="panel-body">					
+					<table id="transacoes" class="table table-striped table-bordered" cellspacing="0" width="100%">
+						<thead>
+							<tr>						
+								<th>Data</th>
+								<th>Conta</th>
+								<th>Descrição</th>
+								<th>Valor</th>
+								<th>Tipo</th>
+								<th>Consolidada</th>
+								<th>Editar</th>
+								<th>Remover</th>						
+							</tr>						
+						</thead>
+						<tbody>
+							<tr th:each="transacao : ${transacoes}">						
+								<td th:text="${{transacao.data}}"></td>
+								<td th:text="${transacao.conta.nome}"></td>
+								<td th:text="${transacao.descricao}"></td>											
+								<td>R$ <span th:text="${transacao.valor}"></span></td>
+								<td th:text="${transacao.tipoTransacao}"></td>
+								<td th:text="${transacao.consolidada}"></td>
+								<td>
+									<form method="POST" th:action="@{/editaTransacao}">
+										<input type="hidden" name="id" id="id" th:value="${transacao.id}" />
+										<button class="btn btn-primary" type="submit" name="submit" value="value">Editar</button>
+									</form>
+								</td>
+								<td>
+									<form method="POST" th:action="@{/transacoes/delete}">
+										<input type="hidden" name="id" id="id" th:value="${transacao.id}" />
+										<button class="btn btn-primary" type="submit" name="submit" value="value">Remover</button>
+									</form>
+								</td>								
+							</tr>
+						</tbody>		        			        
+					</table>
+				</div>
+		
+
+</body>
+</html>
