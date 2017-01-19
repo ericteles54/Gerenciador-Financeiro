@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,23 +16,29 @@ import br.com.qualidadeintegrada.gerenciador.financeiro.services.ContaService;
 import br.com.qualidadeintegrada.gerenciador.financeiro.services.UsuarioService;
 
 @Controller
-@RequestMapping("/alterarConta")
+@RequestMapping("/editaConta")
 public class AlteraContasController {
 	
 	@Autowired
-	private ContaService contaUtility;
+	private ContaService contaService;
 			
 	@Autowired
-	private UsuarioService usuarioUtility;
+	private UsuarioService usuarioService;
 	
 	@RequestMapping
-	public ModelAndView alterar() {
+	public ModelAndView altera(@RequestParam("id")String id) {
 		
-		Usuario usuarioTmp = this.usuarioUtility.getUsuarioLogado();		
+		Usuario usuarioTmp = this.usuarioService.getUsuarioLogado();
+		
 		String olaUsuario = "Olá " + usuarioTmp.getUsername() + "!";
 		
-		ModelAndView mv = new ModelAndView("AlteraConta");
-		mv.addObject("olaUsuario", olaUsuario);		
+		Conta conta = contaService.buscarContaPorId(Long.parseLong(id));
+		
+		ModelAndView mv = new ModelAndView("editaConta");
+		mv.addObject("olaUsuario", olaUsuario);
+		mv.addObject("conta", conta);
+			
+		
 		return mv;
 	}
 /*

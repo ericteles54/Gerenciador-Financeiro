@@ -4,11 +4,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,22 +22,22 @@ import br.com.qualidadeintegrada.gerenciador.financeiro.services.UsuarioService;
 public class ContasController {
 	
 	@Autowired
-	private ContaService contaUtility;
+	private ContaService contaService;
 			
 	@Autowired
-	private UsuarioService usuarioUtility;
+	private UsuarioService usuarioService;
 
 	@RequestMapping
 	@ResponseBody
-	public ModelAndView listar() {
+	public ModelAndView lista() {
 		
-		Usuario usuarioTmp = this.usuarioUtility.getUsuarioLogado();
+		Usuario usuarioTmp = this.usuarioService.getUsuarioLogado();
 		
 		String olaUsuario = "Olá " + usuarioTmp.getUsername() + "!";
 		
 		List<Conta> contasUsuario = new ArrayList<Conta>();
-		contasUsuario = this.contaUtility.buscarContasPorUsuario(usuarioTmp);
-		contasUsuario = this.contaUtility.atualizaSaldoContas(contasUsuario);
+		contasUsuario = this.contaService.buscaContasPorUsuario(usuarioTmp);
+		contasUsuario = this.contaService.atualizaSaldoContas(contasUsuario);
 		
 		ModelAndView mv = new ModelAndView("ListaContas");
 		mv.addObject("olaUsuario", olaUsuario);
@@ -51,30 +48,49 @@ public class ContasController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public String salvar(Conta conta) {
+	public String salva(Conta conta) {
 		
 		// Associa usuário (username) à Conta
-		Usuario usuarioTmp = this.usuarioUtility.getUsuarioLogado();
+		Usuario usuarioTmp = this.usuarioService.getUsuarioLogado();
 		conta.setUsuario(usuarioTmp);
 		
 		if(conta.getSaldo() == null) {
 			conta.setSaldo(BigDecimal.ZERO);
 		}
 		
-		this.contaUtility.salvar(conta);
+		this.contaService.salva(conta);
 		
 		return "redirect:/contas";
 	}
 	
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String deletar(@RequestParam("id")String id) {
+	@RequestMapping(value = "/deleta", method = RequestMethod.POST)
+	public String deleta(@RequestParam("id")String id) {
 		
-		this.contaUtility.deletar(Long.parseLong(id));
+		this.contaService.deleta(Long.parseLong(id));
 		
 		return "redirect:/contas";
 	}
 	
-	@RequestMapping(value = "/alterar", method = RequestMethod.POST)
+	@RequestMapping(value = "/altera/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView altera(@RequestParam("id")String id) {
+		
+		Usuario usuarioTmp = this.usuarioService.getUsuarioLogado();
+		
+		String olaUsuario = "Olá " + usuarioTmp.getUsername() + "!";
+		
+		Conta conta = contaService.buscarContaPorId(Long.parseLong(id));
+		
+		ModelAndView mv = new ModelAndView("editaConta");
+		mv.addObject("olaUsuario", olaUsuario);
+		mv.addObject("conta", conta);
+			
+		
+		return mv;
+	}
+	
+	/*
+	@RequestMapping(value = "/altera", method = RequestMethod.POST)
 	public String alterar(@RequestParam("id")String id, HttpServletRequest request, Model model) {
 		
 		Usuario usuarioTmp = this.usuarioUtility.getUsuarioLogado();
@@ -90,5 +106,6 @@ public class ContasController {
 		
 		return "forward:/alterarConta";
 	}
+	*/
 	
 }

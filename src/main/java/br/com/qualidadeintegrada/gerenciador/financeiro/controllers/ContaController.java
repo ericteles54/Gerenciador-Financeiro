@@ -31,7 +31,7 @@ public class ContaController {
 		// Associa usuário (username) à Conta
 		Usuario usuarioTmp = this.usuarioService.getUsuarioLogado();
 		
-		model.addAttribute("contas", contaService.buscarContasPorUsuario(usuarioTmp));
+		model.addAttribute("contas", contaService.buscaContasPorUsuario(usuarioTmp));
 		model.addAttribute("conta", new Conta());
 		
 		return new ModelAndView("gerenciaContas");
@@ -48,7 +48,7 @@ public class ContaController {
 			conta.setSaldo(BigDecimal.ZERO);
 		}
 		
-		this.contaService.salvar(conta);
+		this.contaService.salva(conta);
 		
 		return "redirect:/gerenciaContas";
 	}
@@ -64,7 +64,7 @@ public class ContaController {
 	@RequestMapping("/deleta/{id}")
 	public String deletar(@PathVariable Long id) {
 		
-		this.contaService.deletar(id);
+		this.contaService.deleta(id);
 		
 		return "redirect:/gerenciaContas";
 	}

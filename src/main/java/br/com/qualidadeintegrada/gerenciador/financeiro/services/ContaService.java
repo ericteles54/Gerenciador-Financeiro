@@ -29,12 +29,12 @@ public class ContaService {
 	 * OPERACOES PADRAO OBJETO CONTA
 	 */
 	
-	public void salvar(Conta conta) {
+	public void salva(Conta conta) {
 		
 		this.contasDAO.save(conta);
 	}
 	
-	public void deletar(Long contaId) {
+	public void deleta(Long contaId) {
 		this.contasDAO.delete(contaId);
 	}
 	
@@ -45,7 +45,7 @@ public class ContaService {
 	 * BUSCAS COM OBJETO CONTA
 	 */
 	
-	public List<Conta> buscarContasPorUsuario(Usuario usuario) {
+	public List<Conta> buscaContasPorUsuario(Usuario usuario) {
 		
 		return this.contasDAO.findContasByUsuario(usuario); 
 		

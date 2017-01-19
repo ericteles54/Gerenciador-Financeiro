@@ -40,7 +40,7 @@ public class TransacoesController {
 		String olaUsuario = "Olá " + usuarioTmp.getUsername() + "!";
 		
 		List<Conta> contasUsuario = new ArrayList<Conta>();
-		contasUsuario = this.contaUtility.buscarContasPorUsuario(usuarioTmp);
+		contasUsuario = this.contaUtility.buscaContasPorUsuario(usuarioTmp);
 				
 		List<Transacao> transacoesUsuario = new ArrayList<Transacao>();
 		for(Conta conta : contasUsuario) {

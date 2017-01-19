@@ -17,7 +17,8 @@
 
 
 <!-- Custom styles for Datatable -->
-<link href="css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="css/datatable/dataTables.bootstrap.min.css" rel="stylesheet" />
+
 
 </head>
 
@@ -100,20 +101,19 @@
 								<td th:text="${conta.nome}"></td>
 								<td>R$ <span th:text="${conta.saldo}"></span></td>
 								<td>
-									<form method="POST" th:action="@{/contas/delete}">
+									<form method="POST" th:action="@{/contas/deleta}">
 										<input type="hidden" name="id" id="id" th:value="${conta.id}" />
 										<button class="btn btn-primary" type="submit" name="submit" value="value">Remover</button>																				
 									</form>
-									<form method="POST" th:action="@{/contas/alterar}">
-										<input type="hidden" name="id" id="id" th:value="${conta.id}" />
-									<!-- 	<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#alterarModal">Alterar</button>  -->
+									<form method="POST" th:action="@{/editaConta}">
+										<input type="hidden" name="id" id="id" th:value="${conta.id}" />									
 										<button class="btn btn-primary" type="submit" name="submit" value="value">Alterar</button>									
 									</form>									
 								</td>								
 							</tr>
 						</tbody>
 					</table>
-
+					
 				</div>
 			</div>
 		</div>
@@ -130,8 +130,9 @@
 	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 
-	<script src="js/jquery.dataTables.min.js"></script>
-	<script src="js/dataTables.bootstrap.min.js"></script>
+	<!-- Datatable javascripts -->
+	<script src="js/datatable/jquery.dataTables.min.js"></script>
+	<script src="js/datatable/dataTables.bootstrap.min.js"></script>	
 
 
 	<script type="text/javascript">
@@ -142,6 +143,7 @@
 			});
 		});
 	</script>
+	
 		
 </body>
 </html>
