@@ -75,27 +75,56 @@
 				
 				<div class="form-group">
 										
-					<select class="form-control" th:field="*{conta}">
-						<option th:each="conta : ${contas}"
-								th:value="${conta.id}"
-								th:text="${conta.nome}">
-						</option>
-					</select>					
-					     	   				
-					<input type="text" class="form-control" id="transacaoData" placeholder="Data" data-date-format="yyyy/mm/dd" th:field="*{data}" />    	   				
-								
-					<input type="text" class="form-control" placeholder="Descrição" th:field="*{descricao}" />
-					<input type="text" class="form-control" placeholder="Valor" th:field="*{valor}" />			 		
-			 		<select class="form-control" th:field="*{tipoTransacao}">
-			 			<option th:each="tipoTransacao : ${tiposTransacao}"
-			 					th:value="${tipoTransacao}"
-			 					th:text="${tipoTransacao}">
-			 			</option>
-			 		</select>
-					 					 				
-					<label class="checkbox-inline"><input type="checkbox" title="Consolidada" name="consolidada" th:field="*{consolidada}" />Consolidada</label>
-						
-					<button type="submit" class="btn btn-primary">Adicionar</button>
+				<!-- <table id="transacoes" class="table table-striped table-bordered" cellspacing="0" width="100%"> -->
+					<table class="table table-bordered" style="text-align: center">
+						<thead>
+							<tr>						
+								<th>Banco</th>
+								<th>Data</th>
+								<th>Descrição</th>
+								<th>Valor</th>
+								<th>Tipo</th>
+								<th>Consolidada</th>
+								<th>Repetir</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>										
+									<select class="form-control" th:field="*{conta}">
+										<option th:each="conta : ${contas}"
+												th:value="${conta.id}"
+												th:text="${conta.nome}">
+										</option>
+									</select>					
+					     	   </td>
+						   	   <td>				
+									<input type="text" class="form-control" id="transacaoData" placeholder="Data" data-date-format="yyyy/mm/dd" th:field="*{data}" style="width:100px;" />
+								</td>
+								<td>
+									<input type="text" class="form-control" placeholder="Descrição" th:field="*{descricao}" />
+								</td>
+								<td>
+									<input type="text" class="form-control" placeholder="Valor" th:field="*{valor}" style="width:90px;" />
+								</td>			 		
+			 					<td>
+							 		<select class="form-control" th:field="*{tipoTransacao}">
+							 			<option th:each="tipoTransacao : ${tiposTransacao}"
+							 					th:value="${tipoTransacao}"
+							 					th:text="${tipoTransacao}">
+							 			</option>
+							 		</select>
+			 					</td>					 					 				
+				    			 <td>									                      
+					               	<input type="checkbox" th:field="*{consolidada}" style="width:30px; height:30px;" />					                        				                    
+                    			</td>
+                    			<td>
+                    				<input type="text" class="form-control" placeholder="Repetições" th:field="*{repeticoes}" style="width:90px;" />
+                    			</td>							
+							</tr>
+						</tbody>
+					</table>					
+					<button type="submit" class="btn btn-primary">Adicionar</button>					
 				</div>
 			</form>
 		</div>

@@ -22,16 +22,15 @@
 				<th>Remover</th>						
 			</tr>						
 		</thead>
-		<tbody>
-		<!-- 	<tr th:each="transacao : ${transacoes}" th:style="${#strings.equals(transacao.tipoTransacao,'DESPESA')} ? 'color:#660000;' : ''">  -->
-				<tr th:each="transacao : ${transacoes}" th:style="${#strings.equals(transacao.tipoTransacao,'DESPESA')} ? 'color:#660000;' : ''">						
+		<tbody>		
+			<tr th:each="transacao : ${transacoes}" th:style="'color:' + ${transacao.corTransacao}">						
 				<td th:text="${{transacao.data}}"></td>
 				<td th:text="${transacao.conta.nome}"></td>
 				<td th:text="${transacao.descricao}"></td>											
-				<td>R$ <span th:text="${transacao.valor}"></span></td>
-				<td th:text="${transacao.tipoTransacao}"></td>
-				<td th:text="${transacao.consolidada}"></td>
-				<td>
+				<td>R$ <span th:text="${transacao.valor}"></span></td>			
+				<td><img th:src="@{${transacao.imgTransacao}}" /></td>	
+				<td><img th:src="${transacao.consolidada} ? @{images/consolidada.png} : ''" /></td>
+ 				<td>
 					<form method="POST" th:action="@{/editaTransacao}">
 						<input type="hidden" name="id" id="id" th:value="${transacao.id}" />
 						<button class="btn btn-primary" type="submit" name="submit" value="value">Editar</button>

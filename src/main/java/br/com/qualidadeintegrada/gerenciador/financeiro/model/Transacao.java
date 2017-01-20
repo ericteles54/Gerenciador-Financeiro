@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -26,6 +27,12 @@ public class Transacao {
 	private TipoTransacao tipoTransacao;
 	
 	@NotNull
+	private String corTransacao;
+	
+	@NotNull
+	private String imgTransacao;
+	
+	@NotNull
 	private String descricao;
 	
 	@NotNull
@@ -39,14 +46,19 @@ public class Transacao {
 	@ManyToOne
 	private Conta conta;
 	
+	@Transient
+	private int repeticoes;
+	
 	
 	public Transacao() {
 		
 	}
 	
-	public Transacao(BigDecimal valor, TipoTransacao tipoTransacao, String descricao, Date data, boolean consolidada, Conta conta) {
+	public Transacao(BigDecimal valor, TipoTransacao tipoTransacao, String corTransacao, String imgTransacao, String descricao, Date data, boolean consolidada, Conta conta) {
 		this.valor = valor;
 		this.tipoTransacao = tipoTransacao;
+		this.corTransacao = corTransacao;
+		this.imgTransacao = imgTransacao;
 		this.descricao = descricao;
 		this.data = data;
 		this.consolidada = consolidada;
@@ -71,6 +83,22 @@ public class Transacao {
 
 	public TipoTransacao getTipoTransacao() {
 		return tipoTransacao;
+	}
+	
+	public String getCorTransacao() {
+		return corTransacao;
+	}
+
+	public void setCorTransacao(String corTransacao) {
+		this.corTransacao = corTransacao;
+	}
+		
+	public String getImgTransacao() {
+		return imgTransacao;
+	}
+
+	public void setImgTransacao(String imgTransacao) {
+		this.imgTransacao = imgTransacao;
 	}
 
 	public void setTipoTransacao(TipoTransacao tipoTransacao) {
@@ -107,6 +135,14 @@ public class Transacao {
 
 	public void setConta(Conta conta) {
 		this.conta = conta;
+	}
+
+	public int getRepeticoes() {
+		return repeticoes;
+	}
+
+	public void setRepeticoes(int repeticoes) {
+		this.repeticoes = repeticoes;
 	}
 	
 }

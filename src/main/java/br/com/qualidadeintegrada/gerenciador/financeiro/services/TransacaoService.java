@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.qualidadeintegrada.gerenciador.financeiro.dao.TransacoesDAO;
 import br.com.qualidadeintegrada.gerenciador.financeiro.model.Conta;
+import br.com.qualidadeintegrada.gerenciador.financeiro.model.TipoTransacao;
 import br.com.qualidadeintegrada.gerenciador.financeiro.model.Transacao;
 
 @Service
@@ -23,8 +24,45 @@ public class TransacaoService {
 	 */
 	
 	public void salva(Transacao transacao) {
-		
-		this.transacoesDAO.save(transacao);		
+				
+		if(transacao.getTipoTransacao().equals(TipoTransacao.DESPESA)) {
+			transacao.setCorTransacao("#660000");
+			transacao.setImgTransacao("images/despesa.png");
+		}
+		else if (transacao.getTipoTransacao().equals(TipoTransacao.RECEITA)) {
+			transacao.setCorTransacao("#006600");
+			transacao.setImgTransacao("images/receita.png");
+		}
+		else {
+			transacao.setCorTransacao("#002699");
+			transacao.setImgTransacao("images/transferencia.png");
+		}
+				
+		Calendar data = Calendar.getInstance();
+		data.setTime(transacao.getData());
+		Transacao transacaoSalvar;		
+		for(int i = 1; i <= transacao.getRepeticoes(); i++) {
+			
+			if(i > 1) {
+				transacaoSalvar = new Transacao();
+				transacaoSalvar.setValor(transacao.getValor());
+				transacaoSalvar.setTipoTransacao(transacao.getTipoTransacao());
+				transacaoSalvar.setCorTransacao(transacao.getCorTransacao());
+				transacaoSalvar.setImgTransacao(transacao.getImgTransacao());
+				transacaoSalvar.setDescricao(transacao.getDescricao());			
+				transacaoSalvar.setData(data.getTime());
+				transacaoSalvar.setConsolidada(transacao.isConsolidada());
+				transacaoSalvar.setConta(transacao.getConta());		
+				this.transacoesDAO.save(transacaoSalvar);
+			}
+			else {
+				this.transacoesDAO.save(transacao);
+			}
+			
+			
+			data.add(Calendar.MONTH, 1);
+		}
+						
 	}
 	
 	public void deleta(Long transacaoId) {
