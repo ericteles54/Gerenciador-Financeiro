@@ -46,7 +46,7 @@ public class TransacaoService {
 	
 	public List<Transacao> buscaTransacoesConsolidadasPorConta(Conta conta) {
 		
-		return this.transacoesDAO.findTransacoesConsolidadasByConta(conta);
+		return this.transacoesDAO.findValorTransacoesConsolidadasByConta(conta);
 	}
 	
 	public Transacao buscaTransacaoPorId(Long id) {

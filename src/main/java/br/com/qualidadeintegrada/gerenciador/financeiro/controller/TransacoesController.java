@@ -4,13 +4,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -58,11 +58,9 @@ public class TransacoesController {
 		List<Transacao> transacoesUsuarioPorMes = new ArrayList<Transacao>();
 		List<Transacao> transacoesUsuarioTodas = new ArrayList<Transacao>();
 		for(Conta conta : contasUsuario) {
-			transacoesUsuarioTodas.addAll(this.transacaoService.buscaTransacoesPorConta(conta));
-			transacoesUsuarioPorMes.addAll(this.transacaoService.buscaTransacoesPorMesAnoConta(Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.YEAR), conta));
+			transacoesUsuarioTodas.addAll(this.transacaoService.buscaTransacoesPorConta(conta));		
 		}
-		
-				
+						
 		
 		List<AnoMes> meses = new ArrayList<AnoMes>();
 		meses = this.getMesDeTransacoes(transacoesUsuarioTodas);
@@ -118,8 +116,7 @@ public class TransacoesController {
 		
 		// Recebe usuário logado e cria mensagem de boas vindas
 		Usuario usuarioTmp = this.usuarioService.getUsuarioLogado();		
-		String olaUsuario = "Olá " + usuarioTmp.getUsername() + "!";
-				
+						
 		// Busca todas as contas do usuário logado
 		List<Conta> contasUsuario = new ArrayList<Conta>();
 		contasUsuario = this.contaService.buscaContasPorUsuario(usuarioTmp);
@@ -146,14 +143,13 @@ public class TransacoesController {
 		List<AnoMes> meses = new ArrayList<AnoMes>();		
 		AnoMes anoMes;
 		
-		for(Transacao transacao : transacoes) {
-						
-			Locale localeBR = new Locale("pt", "BR");
-			DateFormat fmtMesNome = new SimpleDateFormat("MMMM yyyy", localeBR);
-						
+		Locale localeBR = new Locale("pt", "BR");
+		DateFormat fmtMesNome = new SimpleDateFormat("MMMM yyyy", localeBR);
+		
+		for(Transacao transacao : transacoes) {			
+								
 			String mesString = fmtMesNome.format(transacao.getData());
-			
-						
+									
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(transacao.getData());
 			int mesInt = cal.get(Calendar.MONTH);
@@ -165,53 +161,26 @@ public class TransacoesController {
 			anoMes.setMesNome(mesString);
 			anoMes.setMesAnoString(mesInt + "," + anoInt);
 			
-			meses.add(anoMes);
-			
-			/*
-			System.out.println("##### DEBUG Funcao getMesTransacoes #####");
-			System.out.println("Transacao timestamp: " + transacao.getData());
-			System.out.println("anoMes String: " + anoMes.getMesNome());
-			System.out.println("####### FIM DEBUG ##########");
-			System.out.println("##########");
-			System.out.println("##########");
-			System.out.println("##########");
-			*/
+			meses.add(anoMes);			
 		}	
 		
-		List<AnoMes> deduped = meses.stream().distinct().collect(Collectors.toList());
+		// Retira objetos duplicados da lista
+		List<AnoMes> deduped = new ArrayList<AnoMes>(new LinkedHashSet<AnoMes>(meses));
 		
-		/*
-		for(AnoMes AnoMes : meses) {
-		System.out.println("Print da lista meses: " + AnoMes.getMesNome());
-		}
-		for(AnoMes AnoMes2 : deduped) {
-		System.out.println("Print da lista deduped: " + AnoMes2.getMesNome());	
-		}
-		*/
+		// Ordena a lista baseado na funcao compareTo do objeto AnoMes
+		Collections.sort(deduped);
 	
+		// Coloca um objeto AnoMes atual no topo da lista		
+		anoMes = new AnoMes();
+		anoMes.setMes(Calendar.getInstance().get(Calendar.MONTH));
+		anoMes.setAno(Calendar.getInstance().get(Calendar.YEAR));
+		anoMes.setMesNome("*** " + fmtMesNome.format(Calendar.getInstance().getTime()) + " *** - Mês Atual");
+		anoMes.setMesAnoString(Calendar.getInstance().get(Calendar.MONTH) + "," + Calendar.getInstance().get(Calendar.YEAR));
+		deduped.add(0, anoMes);		
+		
 		
 		return deduped;
-		//return meses;
+		
 	}	
-	
-	
-	
-	
-	@RequestMapping(value = "/ajaxtest", method = RequestMethod.GET)
-	@ResponseBody
-	public ModelAndView ajaxtest() {
-		
-		System.out.println("########### FUNCAO EXECUTADA ###############");
-		
-		ModelAndView mv = new ModelAndView("AjaxTransacoes");
-		mv.addObject("olaUsuario", "AjaxOk");
-		
-		return mv;
-	}
-	
-	
-	
-	
-	
-	
+
 }

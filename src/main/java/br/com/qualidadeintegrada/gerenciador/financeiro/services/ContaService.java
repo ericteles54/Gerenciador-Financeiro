@@ -20,7 +20,7 @@ public class ContaService {
 	private ContasDAO contasDAO;
 	
 	@Autowired
-	private TransacaoService transacaoUtility;
+	private TransacaoService transacaoService;
 	
 	
 	
@@ -78,7 +78,7 @@ public class ContaService {
 	private BigDecimal calculaSaldo(Conta conta) {
 
 		List<Transacao> transacoes = new ArrayList<Transacao>();
-		transacoes = this.transacaoUtility.buscaTransacoesConsolidadasPorConta(conta);
+		transacoes = this.transacaoService.buscaTransacoesConsolidadasPorConta(conta);
 		
 		BigDecimal saldo = new BigDecimal(0);
 		
