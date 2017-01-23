@@ -3,24 +3,51 @@
 	xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>Contas</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+	<title>Contas</title>
+	
+	
+	<!-- Bootstrap/JQuery core CSS
+    ================================================== -->
+	<!-- Bootstrap CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+	
+	<!-- Custom styles for this template -->
+	<link href="css/navbar-fixed-top.css" rel="stylesheet" />	
+	
+	<!-- Custom styles for Datatable -->
+	<link href="css/datatable/dataTables.bootstrap.min.css" rel="stylesheet" />
+	
+	
+	
+	<!-- Bootstrap/JQuery core JavaScript
+    ================================================== -->
+	<!-- jQuery (necessario para os plugins Javascript do Bootstrap) -->
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 
-<!-- Bootstrap CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet" />
-
-<!-- Custom styles for this template -->
-<link href="css/navbar-fixed-top.css" rel="stylesheet" />
+	<!-- Datatable javascripts -->
+	<script src="js/datatable/jquery.dataTables.min.js"></script>
+	<script src="js/datatable/dataTables.bootstrap.min.js"></script>	
 
 
-<!-- Custom styles for Datatable -->
-<link href="css/datatable/dataTables.bootstrap.min.css" rel="stylesheet" />
-
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var table = $('#contas').DataTable();
+			new $.fn.dataTable.FixedHeader(table, {
+				alwaysCloneTop : true
+			});
+		});
+	</script>
 
 </head>
+
+
+
 
 <body>
 
@@ -121,32 +148,7 @@
 			</div>
 		</div>
 
-	</div><!-- /container -->
-
-
-
-
-
-	<!-- Bootstrap core JavaScript
-    ================================================== -->
-	<!-- jQuery (necessario para os plugins Javascript do Bootstrap) -->
-	<script src="js/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-
-	<!-- Datatable javascripts -->
-	<script src="js/datatable/jquery.dataTables.min.js"></script>
-	<script src="js/datatable/dataTables.bootstrap.min.js"></script>	
-
-
-	<script type="text/javascript">
-		$(document).ready(function() {
-			var table = $('#contas').DataTable();
-			new $.fn.dataTable.FixedHeader(table, {
-				alwaysCloneTop : true
-			});
-		});
-	</script>
-	
+	</div><!-- /container -->	
 		
 </body>
 </html>

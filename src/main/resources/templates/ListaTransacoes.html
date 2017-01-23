@@ -4,38 +4,118 @@
 	xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge"  />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"  />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>Transações</title>
+	<title>Transações</title>
+	
+	
+	
 
-<!-- Bootstrap CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet" />
+	<!-- Bootstrap/JQuery core CSS
+    ================================================== -->
+	<!-- Bootstrap CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+	
+	<!-- Custom styles for this template -->
+	<link href="css/navbar-fixed-top.css" rel="stylesheet" />
+	
+	
+	<!-- Custom styles for Datatable -->
+	<link href="css/datatable/dataTables.bootstrap.min.css" rel="stylesheet" />
+	
+	
+	<!-- Custom styles for Datapicker -->
+	<link href="css/datapicker/datepicker.css" rel="stylesheet" />
 
-<!-- Custom styles for this template -->
-<link href="css/navbar-fixed-top.css" rel="stylesheet" />
-
-
-<!-- Custom styles for Datatable -->
-<link href="css/datatable/dataTables.bootstrap.min.css" rel="stylesheet" />
-
-
-<!-- Custom styles for Datapicker -->
-<link href="css/datapicker/datepicker.css" rel="stylesheet" />
 
 
 
-<!-- Carrega Tabela de transacao com mês/ano atual -->
-<script type="text/javascript">
-$(document).ready(function(){
-	mostrarMesAnoSelecionado("0,2017");	
-});
-</script>
+
+	<!-- Bootstrap/JQuery core JavaScript
+    ================================================== -->
+	<!-- jQuery (necessario para os plugins Javascript do Bootstrap) -->
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	
+	<script src="js/datatable/jquery.dataTables.min.js"></script>
+	<script src="js/datatable/dataTables.bootstrap.min.js"></script>
+	
+	<script src="js/datapicker/bootstrap-datepicker.js"></script>
+	
+
+	
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+		    var table = $('#transacoes').DataTable();
+		    new $.fn.dataTable.FixedHeader( table, {
+		        alwaysCloneTop: true
+		    });
+		} );
+	</script>
+	
+	<script type="text/javascript">
+		$(document).ready(function () {
+	        $('#transacaoData').datepicker({
+	            format: "yyyy/mm/dd",
+	            language: "pt-BR",
+	            autoclose: true,
+	        }).on('changeDate', function (ev) {
+	        	$(this).datepicker('hide');
+	        });
+	   	});
+	</script>
+		
+	
+	<!-- Funcao Ajax para carregar mês selecionado pelo usuário -->
+	<script type="text/javascript">		
+	    function mostrarMesAnoSelecionado(mesAnoString) {
+				    				
+			var index = mesAnoString.selectedIndex;
+			var valorMesAnoString = mesAnoString.options[index].value;		
+			
+			$.ajax({
+	            type: "GET",
+	            url: "/transacoes/mesAno",
+	            data: {"mesAnoString": valorMesAnoString},            
+	            success: function(response) {	            	
+	                $("#subViewDivTabelaTransacoes").html( response );	                
+	            }
+	        });
+	    }	   
+	</script>	
+
+
+	<!-- Carrega Tabela de transacao com mês/ano atual -->
+	<script type="text/javascript">		
+			function mostrarMesAnoSelecionadoInicializacaoPagina() {
+							
+				var today = new Date();
+				var mm = today.getMonth();
+				var yyyy = today.getFullYear();
+				
+				var valorMesAnoString = mm+","+yyyy;				
+				 
+				$.ajax({
+					type: "GET",
+		            url: "/transacoes/mesAno",
+		            data: {"mesAnoString": valorMesAnoString},            
+		            success: function(response) {	            	
+		                $("#subViewDivTabelaTransacoes").html( response );	                
+		            }
+				});
+		    }	
+	</script>
 
 </head>
 
-<body>
+
+
+
+
+<body onload="mostrarMesAnoSelecionadoInicializacaoPagina()">
 
 	<!-- Fixed navbar -->
 	<nav class="navbar navbar-default navbar-fixed-top">
@@ -166,65 +246,6 @@ $(document).ready(function(){
 	
   	</div><!-- /container -->
 
-
-	
-	
-
-
-
-	<!-- Bootstrap core JavaScript
-    ================================================== -->
-	<!-- jQuery (necessario para os plugins Javascript do Bootstrap) -->
-	<script src="js/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	
-	<script src="js/datatable/jquery.dataTables.min.js"></script>
-	<script src="js/datatable/dataTables.bootstrap.min.js"></script>
-	
-	<script src="js/datapicker/bootstrap-datepicker.js"></script>
-	
-	
-	<script type="text/javascript">
-		$(document).ready(function() {
-		    var table = $('#transacoes').DataTable();
-		    new $.fn.dataTable.FixedHeader( table, {
-		        alwaysCloneTop: true
-		    });
-		} );
-	</script>
-	
-	<script type="text/javascript">
-		$(document).ready(function () {
-	        $('#transacaoData').datepicker({
-	            format: "yyyy/mm/dd",
-	            language: "pt-BR",
-	            autoclose: true,
-	        }).on('changeDate', function (ev) {
-	        	$(this).datepicker('hide');
-	        });
-	   	});
-	</script>
-		
-	
-	<!-- Funcao Ajax para carregar mês selecionado pelo usuário -->
-	<script type="text/javascript">		
-	    function mostrarMesAnoSelecionado(mesAnoString) {
-				    				
-			var index = mesAnoString.selectedIndex;
-			var valorMesAnoString = mesAnoString.options[index].value; 
-			
-			alert("Chamou a funcao " + valorMesAnoString);
-			
-			$.ajax({
-	            type: "GET",
-	            url: "/transacoes/mesAno",
-	            data: {"mesAnoString": valorMesAnoString},            
-	            success: function(response) {	            	
-	                $("#subViewDivTabelaTransacoes").html( response );
-	            }
-	        });
-	    }	   
-	</script>	
 	
 </body>
 </html>
