@@ -124,9 +124,14 @@ public class TransacoesController {
 		}
 		
 		
+		Locale localeBR = new Locale("pt", "BR");
+		DateFormat fmtMesNome = new SimpleDateFormat("MMMM yyyy", localeBR);
+		String mesAnoSelecionado = fmtMesNome.format(transacoesUsuarioPorMes.get(0).getData());
+		
+		
 		ModelAndView mv = new ModelAndView("TabelaTransacoes");
 		mv.addObject("transacoes", transacoesUsuarioPorMes);
-		
+		mv.addObject("mesAnoSelecionado", mesAnoSelecionado);
 		return mv;
 	}
 	

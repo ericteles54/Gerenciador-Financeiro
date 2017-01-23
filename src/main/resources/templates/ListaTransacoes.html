@@ -68,6 +68,23 @@
 	   	});
 	</script>
 		
+		
+	<!-- Funcao Ajax para carregar mês selecionado pelo usuário -->
+	<script type="text/javascript">
+		function mostrarInformacoesContasUsuario(mesAnoString) {
+						
+			var valorMesAnoString = mesAnoString;
+						
+			$.ajax({
+	            type: "GET",
+	            url: "/contas/infoContasUsuario",
+	            data: {"mesAnoString": valorMesAnoString},         
+	            success: function(response) {	            	
+	                $("#subViewDivInformacoesContas").html( response );	                
+	            }
+	        });
+		}
+	</script>
 	
 	<!-- Funcao Ajax para carregar mês selecionado pelo usuário -->
 	<script type="text/javascript">		
@@ -80,10 +97,11 @@
 	            type: "GET",
 	            url: "/transacoes/mesAno",
 	            data: {"mesAnoString": valorMesAnoString},            
-	            success: function(response) {	            	
-	                $("#subViewDivTabelaTransacoes").html( response );	                
+	            success: function(response) {	    	            	
+	                $("#subViewDivTabelaTransacoes").html( response );
+	                mostrarInformacoesContasUsuario(valorMesAnoString);
 	            }
-	        });
+	        });			
 	    }	   
 	</script>	
 
@@ -103,7 +121,8 @@
 		            url: "/transacoes/mesAno",
 		            data: {"mesAnoString": valorMesAnoString},            
 		            success: function(response) {	            	
-		                $("#subViewDivTabelaTransacoes").html( response );	                
+		                $("#subViewDivTabelaTransacoes").html( response );
+		                mostrarInformacoesContasUsuario(valorMesAnoString);
 		            }
 				});
 		    }	
@@ -217,6 +236,8 @@
 				</div>
 			</form>
 		</div>
+		
+		<div class="panel-body" id="subViewDivInformacoesContas"></div>
 
 		<!-- Main component for a primary marketing message or call to action -->
  		<div class="jumbotron">
