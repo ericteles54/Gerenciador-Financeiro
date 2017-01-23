@@ -18,6 +18,9 @@ public class TransacaoService {
 	@Autowired
 	private TransacoesDAO transacoesDAO;
 	
+	@Autowired
+	private ContaService contaService;
+	
 	
 	/*
 	 * OPERACOES PADRAO COM OBJETO TRANSACAO
@@ -40,10 +43,14 @@ public class TransacaoService {
 				
 		Calendar data = Calendar.getInstance();
 		data.setTime(transacao.getData());
-		Transacao transacaoSalvar;		
-		for(int i = 1; i <= transacao.getRepeticoes(); i++) {
-			
-			if(i > 1) {
+		
+		
+		// Se ao adicionar a transacao o numero de repetições for maior que 1
+		// entra no loop
+		if(transacao.getRepeticoes() > 0) {
+			Transacao transacaoSalvar;		
+			for(int i = 0; i < transacao.getRepeticoes(); i++) {
+				
 				transacaoSalvar = new Transacao();
 				transacaoSalvar.setValor(transacao.getValor());
 				transacaoSalvar.setTipoTransacao(transacao.getTipoTransacao());
@@ -52,21 +59,29 @@ public class TransacaoService {
 				transacaoSalvar.setDescricao(transacao.getDescricao());			
 				transacaoSalvar.setData(data.getTime());
 				transacaoSalvar.setConsolidada(transacao.isConsolidada());
-				transacaoSalvar.setConta(transacao.getConta());		
-				this.transacoesDAO.save(transacaoSalvar);
+				transacaoSalvar.setConta(transacao.getConta());
+							
+				this.adicionaTransacaoSaldoConta(transacaoSalvar);
+				this.transacoesDAO.save(transacaoSalvar);				
+				
+				// Incrementa 1 mês na data
+				data.add(Calendar.MONTH, 1);
 			}
-			else {
-				this.transacoesDAO.save(transacao);
-			}
+		}				
+		else { // Senao somente adiciona a transacao ou faz o update			
+						
+			this.adicionaTransacaoSaldoConta(transacao);		
+			this.transacoesDAO.save(transacao);			
 			
-			
-			data.add(Calendar.MONTH, 1);
 		}
+		
+		
 						
 	}
 	
 	public void deleta(Long transacaoId) {
 		
+		this.removeTransacaoSaldoConta(this.buscaTransacaoPorId(transacaoId));
 		this.transacoesDAO.delete(transacaoId);
 	}
 	
@@ -114,9 +129,56 @@ public class TransacaoService {
 	}
 	
 	
+	
 	/*
 	 * OPERACOES COM OBJETO TRANSACAO
 	 */
 	
+	private void adicionaTransacaoSaldoConta(Transacao transacao) {
+				
+	
+		if(transacao.getId() == 0) {
+			
+			// É uma transação nova
+			if(transacao.isConsolidada()) {				
+								
+				if(transacao.getTipoTransacao().equals(TipoTransacao.DESPESA)) {
+					this.contaService.subtraiTransacao(transacao.getConta().getId(), transacao.getValor());
+				} else if (transacao.getTipoTransacao().equals(TipoTransacao.RECEITA)) {
+					this.contaService.somaTransacao(transacao.getConta().getId(), transacao.getValor());
+				}				
+			}
+		}
+		else {
+						
+			// É um update na transacao - entao o valor dela é removido se estava consolidada
+			// antes de operar na transacao
+			this.removeTransacaoSaldoConta(transacao);
+			
+			if(transacao.isConsolidada()) {				
+				if(transacao.getTipoTransacao().equals(TipoTransacao.DESPESA)) {
+					this.contaService.subtraiTransacao(transacao.getConta().getId(), transacao.getValor());
+				} else if (transacao.getTipoTransacao().equals(TipoTransacao.RECEITA)) {
+					this.contaService.somaTransacao(transacao.getConta().getId(), transacao.getValor());
+				}				
+			}
+			
+		}
+	}
+	
+	
+	private void removeTransacaoSaldoConta(Transacao transacao) {
+		
+		Transacao transacaoSalvaNoBanco = this.buscaTransacaoPorId(transacao.getId());
+		if(transacaoSalvaNoBanco.isConsolidada()) {		
+						
+			if(transacaoSalvaNoBanco.getTipoTransacao().equals(TipoTransacao.DESPESA)) {
+				this.contaService.somaTransacao(transacaoSalvaNoBanco.getConta().getId(), transacaoSalvaNoBanco.getValor());
+			}
+			else if (transacaoSalvaNoBanco.getTipoTransacao().equals(TipoTransacao.RECEITA)) {
+				this.contaService.subtraiTransacao(transacaoSalvaNoBanco.getConta().getId(), transacaoSalvaNoBanco.getValor());
+			}
+		}		
+	}
 
 }

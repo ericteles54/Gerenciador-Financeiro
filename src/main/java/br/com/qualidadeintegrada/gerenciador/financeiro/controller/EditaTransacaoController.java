@@ -41,6 +41,7 @@ public class EditaTransacaoController {
 		contasUsuario = this.contaService.buscaContasPorUsuario(usuarioTmp);
 		
 		Transacao transacao = transacaoService.buscaTransacaoPorId(Long.parseLong(id));
+		transacao.setRepeticoes(0);
 		
 		ModelAndView mv = new ModelAndView("editaTransacao");
 		mv.addObject("olaUsuario", olaUsuario);

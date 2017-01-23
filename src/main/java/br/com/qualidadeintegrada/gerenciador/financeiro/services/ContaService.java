@@ -64,6 +64,26 @@ public class ContaService {
 	 * OPERACOES COM OBJETO CONTA
 	 */
 	
+	public void somaTransacao(Long contaId, BigDecimal valor) {
+		
+		Conta conta = this.buscarContaPorId(contaId);
+		
+		conta.setSaldo(conta.getSaldo().add(valor));
+		
+		this.salva(conta);
+		
+	}
+	
+	public void subtraiTransacao(Long contaId, BigDecimal valor) {
+		
+		Conta conta = this.buscarContaPorId(contaId);
+		
+		conta.setSaldo(conta.getSaldo().subtract(valor));
+		
+		this.salva(conta);
+		
+	}
+	
 	public List<Conta> atualizaSaldoContas(List<Conta> contas) {
 		
 		for(Conta conta : contas) {

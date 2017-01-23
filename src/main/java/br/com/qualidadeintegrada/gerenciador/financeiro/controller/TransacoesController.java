@@ -102,18 +102,12 @@ public class TransacoesController {
 		
 		AnoMes anoMes = new AnoMes();
 		
-		String mesAnoString = request.getParameter("mesAnoString");
-		System.out.println("String do ajax: " + mesAnoString);
+		String mesAnoString = request.getParameter("mesAnoString");		
 		
 		String[] mesAnoArray = mesAnoString.split(Pattern.quote(","));
 		anoMes.setMes(Integer.parseInt(mesAnoArray[0]));
 		anoMes.setAno(Integer.parseInt(mesAnoArray[1]));
-		
-		/*
-		System.out.println("########### FUNCAO AJAX TRANSACOES EXECUTADA ###############");
-		System.out.println("Variavel AnoMes recebida: mes:" + anoMes.getMes() + "| ano: " + anoMes.getAno());
-		*/
-		
+				
 		// Recebe usuário logado e cria mensagem de boas vindas
 		Usuario usuarioTmp = this.usuarioService.getUsuarioLogado();		
 						
