@@ -1,5 +1,5 @@
 /* Scripts personalizados para o site */
 
 $(function(){
-    alert("ola");
+    //alert("ola");
 });
