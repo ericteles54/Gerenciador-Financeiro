@@ -1,6 +1,5 @@
 package br.com.qualidadeintegrada.gerenciador.financeiro.services;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -107,25 +106,10 @@ public class TransacaoService {
 		return this.transacoesDAO.findOne(id);
 	}
 	
-	public List<Transacao> buscaTransacoesPorMesAnoConta(int mes, int ano, Conta conta) {
+	// Essa funcao utiliza mes real: Ex. Dezembro = 12
+	public List<Transacao> buscaTransacoesPorMesAnoConta(int mes, int ano, Conta conta) {		
 		
-		List<Transacao> transacoes = new ArrayList<Transacao>();
-		transacoes = this.buscaTransacoesPorConta(conta);
-		
-		Calendar cal = Calendar.getInstance();
-		
-		List<Transacao> transacoesSaida = new ArrayList<Transacao>();
-		for(Transacao transacao : transacoes) {
-			
-			cal.setTime(transacao.getData());
-			int anoTransacao = cal.get(Calendar.YEAR);
-			int mesTransacao = cal.get(Calendar.MONTH);
-			if((anoTransacao == ano) && (mesTransacao == mes)) {
-				transacoesSaida.add(transacao);
-			}
-		}
-		
-		return transacoesSaida;
+		return this.transacoesDAO.findTransacoesByMesAnoConta(mes, ano, conta);		
 	}
 	
 	

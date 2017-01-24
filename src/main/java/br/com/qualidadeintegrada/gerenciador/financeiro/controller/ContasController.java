@@ -105,7 +105,7 @@ public class ContasController {
 		contasUsuario = this.contaService.buscaContasPorUsuario(usuarioTmp);
 						
 		// Calcula informações de contas do usuário
-		List<Transacao> transacoesContaPorMes;
+		List<Transacao> transacoesContaPorMes = new ArrayList<Transacao>();
 		ContaInfoOnline contaInfoOnline;
 		List<ContaInfoOnline> contasInfoOnline = new ArrayList<ContaInfoOnline>();
 		for(Conta conta : contasUsuario) {	
@@ -114,7 +114,7 @@ public class ContasController {
 			transacoesContaPorMes = new ArrayList<Transacao>();
 								
 			// Busca Transacoes relacionadas a conta no mes selecionado
-			transacoesContaPorMes.addAll(this.transacaoService.buscaTransacoesPorMesAnoConta(anoMes.getMes(), anoMes.getAno(), conta));
+			transacoesContaPorMes.addAll(this.transacaoService.buscaTransacoesPorMesAnoConta(anoMes.getMes()+1, anoMes.getAno(), conta));
 			
 			
 			// Efetua calculos e coloca no objeto ContaInfoOnline
@@ -122,21 +122,38 @@ public class ContasController {
 			BigDecimal receita = new BigDecimal(0);			
 			BigDecimal saldo = new BigDecimal(0);
 			for(Transacao transacao : transacoesContaPorMes) {
+												
 				if(transacao.getTipoTransacao().equals(TipoTransacao.DESPESA)) {
-					safafqeafqae
+					
+					despesa = despesa.add(transacao.getValor());					
+					
+				} else if (transacao.getTipoTransacao().equals(TipoTransacao.RECEITA)) {
+					
+					receita = receita.add(transacao.getValor());					
 				}
+				
 			}
+			
+			saldo = receita.subtract(despesa);
+			
+			
 			contaInfoOnline.setConta(conta);
+			contaInfoOnline.setDespesasPeriodo(despesa);
+			contaInfoOnline.setReceitasPeriodo(receita);
+			contaInfoOnline.setSaldoPeriodo(saldo);
+			
+			contasInfoOnline.add(contaInfoOnline);
+			
 		}
 		
 		
 		Locale localeBR = new Locale("pt", "BR");
 		DateFormat fmtMesNome = new SimpleDateFormat("MMMM yyyy", localeBR);
-		String mesAnoSelecionado = fmtMesNome.format(transacoesUsuarioPorMes.get(0).getData());
+		String mesAnoSelecionado = fmtMesNome.format(transacoesContaPorMes.get(0).getData());
 		
 		
 		ModelAndView mv = new ModelAndView("InformacoesContas");
-		mv.addObject("transacoes", transacoesUsuarioPorMes);
+		mv.addObject("contasInfoOnline", contasInfoOnline);
 		mv.addObject("mesAnoSelecionado", mesAnoSelecionado);
 		return mv;
 	}

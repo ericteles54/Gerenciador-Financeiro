@@ -119,8 +119,8 @@ public class TransacoesController {
 		List<Transacao> transacoesUsuarioPorMes = new ArrayList<Transacao>();
 		List<Transacao> transacoesUsuarioTodas = new ArrayList<Transacao>();
 		for(Conta conta : contasUsuario) {
-			transacoesUsuarioTodas.addAll(this.transacaoService.buscaTransacoesPorConta(conta));
-			transacoesUsuarioPorMes.addAll(this.transacaoService.buscaTransacoesPorMesAnoConta(anoMes.getMes(), anoMes.getAno(), conta));
+			transacoesUsuarioTodas.addAll(this.transacaoService.buscaTransacoesPorConta(conta));			
+			transacoesUsuarioPorMes.addAll(this.transacaoService.buscaTransacoesPorMesAnoConta(anoMes.getMes()+1, anoMes.getAno(), conta));
 		}
 		
 		
