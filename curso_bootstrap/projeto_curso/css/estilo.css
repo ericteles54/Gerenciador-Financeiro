@@ -1,0 +1,22 @@
+* {
+        font-family: 'Lato', sans-serif;
+        font-weight: 300;
+}
+
+body {
+        padding-top: 73px;
+}
+
+.perso-navbar-logomarca {
+        font-weight: 700;
+}
+
+.perso-navbar-link {
+        font-weight: 400;
+}
+
+.perso-div-slider {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        background: url(../imgs/bgslider.png);
+}
