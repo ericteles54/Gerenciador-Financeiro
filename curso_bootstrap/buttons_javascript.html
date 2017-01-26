@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Template bootstrap teste</title>
+
+  <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
+  <link href="css/estilos.css" rel="stylesheet" media="screen" />
+</head>
+<body>
+
+        <div class="container">
+                <div class="row">
+                        <div class="col-xs-12 text-center">
+
+                                <div class="page-header">
+                                        <h1>Single toogle</h1>
+                                </div>
+
+                                <button type="button" class="btn btn-primary" data-toggle="button">Single toggle 1</button>
+
+                                <button type="button" class="btn btn-danger" data-toggle="button">Single toggle 2</button>
+
+                                <button type="button" id="troca-estado" data-loading-text="Carregando..." class="btn btn-primary btnjs" data-toggle="button">Carregar algo</button>
+                        </div>
+                </div>
+        </div>
+
+
+        <div class="container">
+                <div class="row">
+                        <div class="col-xs-12 text-center">
+
+                                <div class="page-header">
+                                        <h1>Single checkbox</h1>
+                                </div>
+
+                                <div class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-primary active btnjs">
+                                                <input type="checkbox" checked="true"> Opção 1
+                                        </label>
+                                        <label class="btn btn-primary btnjs">
+                                                <input type="checkbox"> Opção 2
+                                        </label>
+                                        <label class="btn btn-primary btnjs">
+                                                <input type="checkbox"> Opção 3
+                                        </label>
+                                </div>
+
+
+                        </div>
+                </div>
+        </div>
+
+
+
+        <div class="container">
+                <div class="row">
+                        <div class="col-xs-12 text-center">
+
+                                <div class="page-header">
+                                        <h1>Single radio</h1>
+                                </div>
+
+                                <div class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-primary active btnjs">
+                                                <input type="radio" checked="true" name="rdGroup1" id="rdGroup1" checked="true"> Opção 1
+                                        </label>
+                                        <label class="btn btn-primary btnjs">
+                                                <input type="radio" name="rdGroup1" id="rdGroup2"> Opção 2
+                                        </label>
+                                        <label class="btn btn-primary btnjs">
+                                                <input type="radio" name="rdGroup1" id="rdGroup3"> Opção 3
+                                        </label>
+                                </div>
+
+
+                        </div>
+                </div>
+        </div>
+
+
+        <script src="js/jquery.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/main.js"></script>
+
+
+</body>
+</html>

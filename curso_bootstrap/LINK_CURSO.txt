@@ -1,1 +1,16 @@
 http://www.devmedia.com.br/articles/viewaula.asp?idcomp=31247&topico=3683&autoplay=true
+
+
+sites com addons:
+
+http://www.layoutit.com/build
+
+http://bootswatch.com/
+
+http://bootboxjs.com/examples.html
+
+http://goodybag.github.io/bootstrap-notify/
+
+http://tarruda.github.io/bootstrap-datetimepicker/
+
+
