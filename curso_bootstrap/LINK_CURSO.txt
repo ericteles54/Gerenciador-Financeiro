@@ -18,4 +18,25 @@ http://tarruda.github.io/bootstrap-datetimepicker/
 Para desenhar wireframe
 https://moqups.com/
 
+Texturas de fundo interessantes
+https://subtlepatterns.com/
+
+
+Muitos icones interessantes
+http://fontawesome.io/icons/
+
+
+Temas para o bootstrap
+http://bootswatch.com/
+
+Templates para o bootstrap
+https://startbootstrap.com/
+
+Must have bootstrap plugins
+http://tutorialzine.com/2013/07/50-must-have-plugins-for-extending-twitter-bootstrap/
+
+Conjunto de plugins para o bootstrap (datapicker e etc)
+http://getfuelux.com
+
+
 

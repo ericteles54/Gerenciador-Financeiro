@@ -94,3 +94,16 @@ footer {
 .perso-section-interna {
         padding-top: 0px;
 }
+
+.perso-form-login {
+        max-width: 350px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 10px;
+        border-radius: 10px;
+        background: #eee;
+}
+
+.perso-form-login input {
+        margin-bottom: 10px;
+}
