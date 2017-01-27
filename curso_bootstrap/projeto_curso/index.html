@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge"  />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <title>Template bootstrap teste</title>
+          <meta charset="utf-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge"  />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <title>Template bootstrap teste</title>
 
-      <!-- Fonte lato do google web fonts -->
-      <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+          <!-- Fonte lato do google web fonts -->
+          <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
 
-      <!-- Import do bootstrap -->
-      <link href="css/bootstrap.min.css" rel="stylesheet" />
-      <link href="css/estilo.css" rel="stylesheet" />
+          <!-- Import do bootstrap -->
+          <link href="css/bootstrap.min.css" rel="stylesheet" />
+          <link href="css/estilo.css" rel="stylesheet" />
 </head>
-<body>
 
-      <!-- menu da aplicação -->
-      <nav class="navbar navbar-default navbar-fixed-top">
+<body data-spy="scroll" data-target=".menu-navegacao" data-offset="80">
 
-              <div class="container">
+          <!-- menu da aplicação -->
+          <nav class="navbar navbar-default navbar-fixed-top">
+
+                  <div class="container">
 
 
-                      <div class="navbar navbar-header">
+                          <div class="navbar navbar-header">
                                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu-navegacao">
                                         <span class="icon-bar"></span>
                                         <span class="icon-bar"></span>
@@ -31,7 +32,7 @@
                         </div>
 
 
-                        <div class="collapse navbar-collapse" id="menu-navegacao">
+                        <div class="collapse navbar-collapse menu-navegacao" id="menu-navegacao">
                                 <ul class="nav navbar-nav navbar-right">
                                         <li>
                                                 <a href="#page-top"></a>
@@ -64,17 +65,39 @@
         <!-- slider da aplicacao -->
         <div class="perso-div-slider">
                 <div class="container">
-                <div id="slider-principal" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner" role="listbox">
-                                <div class="item active">
-                                        <img src="imgs/slider/slider1.jpg" alt="Imagem slider 1" />
+                        <div class="row">
+                        <div class="col-xs-12">
+                                <div id="slider-principal" class="carousel slide" data-ride="carousel">
+
+                                        <ol class="carousel-indicators">
+                                                <li data-target="#slider-principal" data-slide-to="0" class="active"></li>
+                                                <li data-target="#slider-principal" data-slide-to="1"></li>
+                                                <li data-target="#slider-principal" data-slide-to="2"></li>
+                                        </ol>
+
+                                        <div class="carousel-inner" role="listbox">
+                                                <div class="item active">
+                                                        <img src="imgs/slider/slider1.jpg" alt="Imagem slider 1" />
+                                                </div>
+                                                <div class="item">
+                                                        <img src="imgs/slider/slider2.jpg" alt="Imagem slider 2" />
+                                                </div>
+                                                <div class="item">
+                                                        <img src="imgs/slider/slider3.jpg" alt="Imagem slider 3" />
+                                                </div>
+                                        </div>
+
+                                        <a class="left carousel-control" href="#slider-principal" role="button" data-slide="prev">
+                                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                                <span class="sr-only">Anterior</span>
+                                        </a>
+                                        <a class="right carousel-control" href="#slider-principal" role="button" data-slide="next">
+                                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                                <span class="sr-only">Posterior</span>
+                                        </a>
+
                                 </div>
-                                <div class="item">
-                                        <img src="imgs/slider/slider2.jpg" alt="Imagem slider 2" />
-                                </div>
-                                <div class="item">
-                                        <img src="imgs/slider/slider3.jpg" alt="Imagem slider 3" />
-                                </div>
+                        </div>
                         </div>
                 </div>
         </div>
@@ -82,38 +105,299 @@
 
 
         <!-- tag serviços -->
-        <div id="servicos">
-                <h3>Serviços</h3>
-        </div>
+        <section id="servicos">
+                <div class="container">
+                        <div class="row">
+                                <div class="col-xs-12">
+                                        <div class="page-header"><h3>Serviços <small>Conheça o que fazemos</small></h3></div>
+
+                                </div>
+                        </div>
+
+                        <div class="row">
+
+                                <div class="col-md-4 col-sm-4 perso-servicos-item">
+                                        <div><img src="imgs/foto.png" class="img-responsive img-rounded" /></div>
+                                        <h4>e-commerce</h4>
+                                        <p>Descrição do serviço aprensetado, texto texto  exto texto texto texto texto texto texto texto texto texto</p>
+                                </div>
+
+                                <div class="col-md-4 col-sm-4 perso-servicos-item">
+                                        <div><img src="imgs/foto.png" class="img-responsive img-rounded" /></div>
+                                        <h4>Desenvolvimento de sites</h4>
+                                        <p>Descrição do serviço aprensetado, texto texto  exto texto texto texto texto texto texto texto texto texto</p>
+                                </div>
+
+                                <div class="col-md-4 col-sm-4 perso-servicos-item">
+                                        <div><img src="imgs/foto.png" class="img-responsive img-rounded" /></div>
+                                        <h4>Criação de layout</h4>
+                                        <p>Descrição do serviço aprensetado, texto texto  exto texto texto texto texto texto texto texto texto texto</p>
+                                </div>
+                        </div>
+
+                        <div class="row">
+                                <div class="col-xs-12 text-center">
+                                        <a href="#" class="btn btn-default btn-lg perso-servicos-btn-todos-servicos">Veja nossos serviços</a>
+                                </div>
+                        </div>
+
+                </div>
+        </section>
         <!-- fim  tag serviços -->
 
+
         <!-- tag portifolio -->
-        <div id="portifolio">
-                <h3>Portifolio</h3>
-        </div>
+        <section id="portifolio" class="perso-div-colorida">
+                <div class="container">
+                        <div class="row">
+                                <div class="col-xs-12">
+                                        <div class="page-header"><h3>Portifolio <small>Conheça nosso trabalho</small></h3></div>
+                                </div>
+                        </div>
+
+                        <div class="row perso-portifolio-row">
+                                <div class="col-md-4 col-sm-4">
+                                        <div class="perso-portifolio-item">
+                                                <div>
+                                                        <img src="imgs/foto.png" class="img-responsive img-rounded grayscale">
+                                                        <h4>Nome do cliente</h4>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4">
+                                        <div class="perso-portifolio-item">
+                                                <div>
+                                                        <img src="imgs/foto.png" class="img-responsive img-rounded grayscale">
+                                                        <h4>Nome do cliente</h4>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4">
+                                        <div class="perso-portifolio-item">
+                                                <div>
+                                                        <img src="imgs/foto.png" class="img-responsive img-rounded grayscale">
+                                                        <h4>Nome do cliente</h4>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+
+                        <div class="row perso-portifolio-row">
+                                <div class="col-md-4 col-sm-4">
+                                        <div class="perso-portifolio-item">
+                                                <div>
+                                                        <img src="imgs/foto.png" class="img-responsive img-rounded grayscale">
+                                                        <h4>Nome do cliente</h4>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4">
+                                        <div class="perso-portifolio-item">
+                                                <div>
+                                                        <img src="imgs/foto.png" class="img-responsive img-rounded grayscale">
+                                                        <h4>Nome do cliente</h4>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4">
+                                        <div class="perso-portifolio-item">
+                                                <div>
+                                                        <img src="imgs/foto.png" class="img-responsive img-rounded grayscale">
+                                                        <h4>Nome do cliente</h4>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+
+                        <div class="row">
+                                <div class="col-xs-12 text-center">
+                                        <a href="portifolio.html" class="btn btn-default btn-lg perso-servicos-btn-todos-servicos">Conheça nossos clientes</a>
+                                </div>
+                        </div>
+                </div>
+        </section>
         <!-- fim  tag portifolio -->
 
+
         <!-- tag quem somos -->
-        <div id="quem-somos">
-                <h3>Quem somos</h3>
-        </div>
+        <section id="quem-somos">
+                <div class="container">
+                       <div class="row">
+                                <div class="col-xs-12">
+                                        <div class="page-header"><h3>Quem somos <small>Conheça nossa história</small></h3></div>
+                                </div>
+                        </div>
+
+                        <div class="row">
+                                <div class="col-sm-6">
+                                        <div class="col-sm-8 text-right">
+                                                <h4>Texto sobre a empresa</h4>
+                                                <p>
+                                                        psum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                                        proident, sunt in culpa qui officia deserunt mollit anim id .
+                                                        psum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+
+                                                </p>
+                                        </div>
+                                        <div class="col-md-4">
+                                                <img src="imgs/foto.png" class="img-responsive img-circle">
+                                        </div>
+
+                                </div>
+
+                                <div class="col-sm-6">
+                                        <div class="col-md-4">
+                                                <img src="imgs/foto.png" class="img-responsive img-circle">
+                                        </div>
+                                        <div class="col-sm-8">
+                                              <h4>Missão da empresa</h4>
+                                                <p>
+                                                        psum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+
+                                                </p>
+                                        </div>
+                                </div>
+                        </div>
+
+
+                        <div class="col-xs-12">
+                                        <div class="page-header"><h3>Nossa equipe <small>Conheça nossos colaboradores</small></h3></div>
+                                </div>
+                        <div class="row">
+                                <div class="col-sm-3">
+                                        <div><img src="imgs/foto.png" class="img-responsive grayscale" /></div>
+                                        <h4>Nome do funcionario</h4>
+                                </div>
+                                <div class="col-sm-3">
+                                        <div><img src="imgs/foto.png" class="img-responsive grayscale" /></div>
+                                        <h4>Nome do funcionario</h4>
+                                </div>
+                                <div class="col-sm-3">
+                                        <div><img src="imgs/foto.png" class="img-responsive grayscale" /></div>
+                                        <h4>Nome do funcionario</h4>
+                                </div>
+                                <div class="col-sm-3">
+                                        <div><img src="imgs/foto.png" class="img-responsive grayscale" /></div>
+                                        <h4>Nome do funcionario</h4>
+                                </div>
+                        </div>
+
+
+                        <div class="row">
+                                <div class="col-xs-12 text-center">
+                                        <a href="quemsomos.html" class="btn btn-default btn-lg perso-servicos-btn-todos-servicos">Conheça nossa equipe</a>
+                                </div>
+                        </div>
+
+                </div>
+        </section>
         <!-- fim  tag quem somos -->
 
+
         <!-- tag localização -->
-        <div id="localizacao">
-                <h3>Localização</h3>
-        </div>
+        <section id="localizacao" class="perso-div-colorida">
+                <div class="container">
+                        <div class="row">
+                                <div class="col-xs-12">
+                                        <div class="page-header"><h3>Localização <small>Veja onde estamos</small></h3></div>
+                                </div>
+                        </div>
+
+                        <div class="row">
+                                <div class="col-xs-12">
+                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d118141.65945167624!2d-42.60300003174747!3d-22.28076033196652!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x978a936f151283%3A0xff2b16c0bfb117c4!2sNova+Friburgo%2C+RJ!5e0!3m2!1spt-BR!2sbr!4v1485458283872"
+                                                width="100%" height="520" frameborder="0" style="border:0" allowfullscreen>
+                                        </iframe>
+                                </div>
+                        </div>
+                </div>
+        </section>
         <!-- fim  tag localização -->
 
+
         <!-- tag contatos -->
-        <div id="contatos">
-                <h3>Contatos</h3>
-        </div>
+        <section id="contatos">
+                <div class="container">
+                        <div class="row">
+                                <div class="col-xs-12">
+                                        <div class="page-header"><h3>Contatos <small>Fale conosco agora mesmo</small></h3></div>
+                                </div>
+                        </div>
+
+                        <div class="row perso-contato">
+                                <div class="col-xs12">
+                                        <p class="bg-success perso-aviso">Preencha o formulário abaixo para entrar em contato conosco!</p>
+                                </div>
+                        </div>
+
+                        <div class="row">
+                                <div class="col-xs-12 perso-contato">
+
+                                        <form name="frmContato" id="formContato">
+                                                <div class="row">
+
+                                                        <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                        <input type="text" class="form-control input-lg" placeholder="Qual o seu nome" required="true" />
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                        <input type="email" class="form-control input-lg" placeholder="Qual o seu email" required="true" />
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                        <input type="tel" class="form-control input-lg" placeholder="seu telefone" />
+                                                                </div>
+                                                        </div>
+
+
+                                                        <div class="col-md-6">
+                                                                <textarea class="form-control" placeholder="Sua mensagem! *" required="true"></textarea>
+                                                        </div>
+                                                </div>
+
+                                                <div class="row">
+                                                        <div class="col-sm-6">
+                                                                <div class="alert alert-success">Envio realizado</div>
+                                                        </div>
+                                                        <div class="col-xs-12 col-sm-6 text-right">
+                                                                <button type="submit" class="btn btn-success btn-lg">Enviar formulário</button>
+                                                        </div>
+                                                </div>
+
+                                        </form>
+
+                                </div>
+                        </div>
+                </div>
+        </section>
         <!-- fim  tag contatos -->
+
 
         <!-- tag rodapé -->
         <footer>
-                Rodapé da página
+                <div class="container">
+                        <div class="row">
+                                <div class="col-sm-10">
+                                        Informações gerais sobre a empresa, endereço, email e etc...
+                                </div>
+                                <div class="col-sm-2 text-right">
+                                        <small>Desenvolvido por :</small><br />
+                                        <strong>Eric Teles Leite</strong>
+                                </div>
+                        </div>
+
+                </div>
         </footer>
         <!-- fim  tag rodapé -->
 
@@ -121,6 +405,8 @@
         <!-- Importação de scripts javascript para a página -->
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap.min.js"></script>
+
+        <script src="js/rolagem_tela.js"></script>
 
 </body>
 </html>
