@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Template bootstrap teste</title>
+
+<!-- Fonte lato do google web fonts -->
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700"
+	rel="stylesheet" />
+
+<!-- Import do bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- Folha de estilos personalizada -->
+<link href="css/estilo.css" rel="stylesheet" />
+
+<!-- Css do Datatable -->
+<link href="css/datatable/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+</head>
+
+<body>
+
+
+	<!-- menu da aplicação -->
+	<nav
+		class="navbar navbar-default navbar-fixed-top perso-navbar-backgrond">
+
+		<div class="container">
+			<div class="navbar navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#idMenuNavegacao">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="perso-navbar-logomarca navbar-brand" href="#">Gerenciador
+					Financeiro</a>
+			</div>
+
+
+			<div class="collapse navbar-collapse" id="idMenuNavegacao">				
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"></a></li>
+					<li><a class="perso-navbar-link" href="contas">Contas</a></li>
+					<li><a class="perso-navbar-link" href="transacoes">Transações</a></li>
+					<li><a class="perso-navbar-link" href="#usuario">Usuário</a></li>										
+					<li><a class="perso-navbar-link" href="logout">Sign out</a></li>
+					<li><a class="perso-navbar-saudacao" href="#" th:text="${olaUsuario}"></a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- // do menu da aplicação -->
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- PARTE PRINCIPAL DA PAGINA -->
+	<div class="container">
+	
+	
+		<!-- Formulário para criação de nova conta -->
+		<div class="row">
+			<div class="col-xs-12">
+				
+				<div class="panel panel-default">
+					
+					<div class="panel-heading">
+						<h3 class="panel-title">Lista de contas</h3>
+					</div>
+					
+					
+					<div class="panel-body">
+					
+						<form class="form-inline" method="POST" th:object="${conta}" th:action="@{/contas}">
+	
+							<div class="form-group">
+								<label for="idNome" class="control-label">Nome</label>								
+								<input type="text" class="form-control" placeholder="Nome" th:field="*{nome}" id="idNome" />							
+							</div>
+							
+							<button class="btn btn-primary" type="submit">Adicionar</button>
+							
+						</form>
+						
+					</div>
+										
+				</div>
+			</div>
+		</div>
+		<!-- // Formulário para criação de nova conta -->
+		
+		
+		
+		<!-- Tabela com informações de contas -->
+		<div class="row">
+			<div class="col-xs-12">			
+				
+				<table id="contas" class="table table-striped table-bordered" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+							<th>Nome</th>
+							<th>Saldo</th>
+							<th>Editar</th>
+							<th>Remover</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr th:each="conta : ${contas}">
+							<td th:text="${conta.nome}"></td>
+							<td>R$ <span th:text="${conta.saldo}"></span></td>
+							<td>
+								<form method="POST" th:action="@{/editaConta}">
+									<input type="hidden" name="id" id="id" th:value="${conta.id}" />
+									<button class="btn btn-primary" type="submit" name="submit"
+										value="value">Editar</button>
+								</form>
+							</td>
+							<td>
+								<form method="POST" th:action="@{/contas/deleta}">
+									<input type="hidden" name="id" id="id" th:value="${conta.id}" />
+									<button class="btn btn-primary" type="submit" name="submit"
+										value="value">Remover</button>
+								</form>
+							</td>
+						</tr>
+					</tbody>
+				</table>							
+				
+			</div>		
+			
+		</div>
+		<!-- // tabela de contas -->
+		
+	</div>
+	<!--  // PARTE PRINCIPAL DA PAGINA -->
+
+
+
+
+
+
+
+
+
+
+	<!-- tag rodapé -->
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-10">Sistema para controle de contas
+					pessoais.</div>
+				<div class="col-sm-2 text-right">
+					<small>Desenvolvido por :</small><br /> <strong>Eric
+						Teles Leite</strong>
+				</div>
+			</div>
+
+		</div>
+	</footer>
+	<!-- //  tag rodapé -->
+
+
+
+	<!-- Importação de scripts javascript padrões para o bootstrap -->
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+
+
+	<!-- Datatable javascripts -->
+	<script src="js/datatable/jquery.dataTables.min.js"></script>
+	<script src="js/datatable/dataTables.bootstrap.min.js"></script>	
+
+	<!-- Scripts personalizados para todas as página -->
+	<script src="js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Template bootstrap teste</title>
+
+<!-- Fonte lato do google web fonts -->
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700"
+	rel="stylesheet" />
+
+<!-- Import do bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- Folha de estilos personalizada -->
+<link href="css/estilo.css" rel="stylesheet" />
+
+<!-- Css do Datatable -->
+<link href="css/datatable/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+<!-- Css do Datapicker -->
+<link href="css/datapicker/datepicker.css" rel="stylesheet" />
+
+</head>
+
+<body onload="mostrarMesAnoSelecionadoInicializacaoPagina()">
+
+
+	<!-- menu da aplicação -->
+	<nav
+		class="navbar navbar-default navbar-fixed-top perso-navbar-backgrond">
+
+		<div class="container">
+			<div class="navbar navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#idMenuNavegacao">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="perso-navbar-logomarca navbar-brand" href="#">Gerenciador Financeiro</a>
+			</div>
+
+
+			<div class="collapse navbar-collapse" id="idMenuNavegacao">				
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"></a></li>
+					<li><a class="perso-navbar-link" href="contas">Contas</a></li>
+					<li><a class="perso-navbar-link" href="transacoes">Transações</a></li>
+					<li><a class="perso-navbar-link" href="#usuario">Usuário</a></li>										
+					<li><a class="perso-navbar-link" href="logout">Sign out</a></li>
+					<li><a class="perso-navbar-saudacao" href="#" th:text="${olaUsuario}"></a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- // do menu da aplicação -->
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- PARTE PRINCIPAL DA PAGINA -->
+	<div class="container">
+	
+	
+		<!-- Formulário para criação de nova transacao -->
+		<div class="row">
+			<div class="col-xs-12">
+				
+				<div class="panel panel-default">
+					
+					<div class="panel-heading">
+						<h3 class="panel-title">Lista de transações</h3>
+					</div>
+					
+					
+					<div class="panel-body">
+									
+																	
+							<form method="POST" th:object="${transacao}" th:action="@{/transacoes}">
+						
+								<div class="form-group">
+								
+									<div class="row">
+									<div class="col-md-2">
+									<label for="idConta" class="control-label">Conta</label>
+									<select class="form-control" th:field="*{conta}" id="idConta">
+										<option th:each="conta : ${contas}"
+											th:value="${conta.id}"
+											th:text="${conta.nome}">
+										</option>
+									</select>
+									</div>
+									
+									<div class="col-md-2">
+									<label for="idData" class="control-label">Data</label>
+									<input type="text" class="form-control" id="idData" placeholder="Data" data-date-format="yyyy/mm/dd" th:field="*{data}" />
+									</div>
+									
+									<div class="col-md-2">
+									<label for="idDescricao" class="control-label">Descrição</label>
+									<input type="text" class="form-control" id="idDescricao" placeholder="Descrição" th:field="*{descricao}" />
+									</div>
+									
+									<div class="col-md-2">
+									<label for="idValor" class="control-label">Valor</label>
+									<input type="text" class="form-control" id="idValor" placeholder="Valor" th:field="*{valor}" />
+									</div>
+									
+									<div class="col-md-2">
+									<label for="idTipo" class="control-label">Tipo</label>
+									<select class="form-control" th:field="*{tipoTransacao}" id="idTipo">
+							 			<option th:each="tipoTransacao : ${tiposTransacao}"
+						 					th:value="${tipoTransacao}"
+						 					th:text="${tipoTransacao.descricao}">
+							 			</option>
+							 		</select>
+							 		</div>			 		
+							 		
+							 		
+							 		<div class="col-md-1">							 		
+							 		<label for="idConsolidada" class="control-label">Consolidada</label>		
+							 		<input type="checkbox" th:field="*{consolidada}" id="idConsolidada" style="height: 26px; width:26px;"/>					 				 									 		
+							 		</div>
+							 		
+							 		<div class="col-md-1">
+							 		<label for="idRepetir" class="control-label">Repetir</label>
+							 		<input type="text" class="form-control" id="idRepetir" placeholder="Repetições" th:field="*{repeticoes}" />
+							 		</div>
+									
+									</div>												
+								</div>								
+																
+								<button class="btn btn-primary" type="submit">Adicionar</button>								
+								
+							</form>
+						
+						
+					</div>
+										
+				</div>
+			</div>
+		</div>
+		<!-- // Formulário para criação de nova transacao -->
+		
+		
+		
+		<!-- Tabela com informações de contas -->
+		<div class="row">
+			<div class="col-xs-12">			
+				
+				TABLE						
+				
+			</div>		
+			
+		</div>
+		<!-- // tabela de contas -->
+		
+	</div>
+	<!--  // PARTE PRINCIPAL DA PAGINA -->
+
+
+
+
+
+
+
+
+
+
+	<!-- tag rodapé -->
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-10">Sistema para controle de contas
+					pessoais.</div>
+				<div class="col-sm-2 text-right">
+					<small>Desenvolvido por :</small><br /> <strong>Eric
+						Teles Leite</strong>
+				</div>
+			</div>
+
+		</div>
+	</footer>
+	<!-- //  tag rodapé -->
+
+
+
+	<!-- Importação de scripts javascript padrões para o bootstrap -->
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+
+
+	<!-- Datatable javascripts -->
+	<script src="js/datatable/jquery.dataTables.min.js"></script>
+	<script src="js/datatable/dataTables.bootstrap.min.js"></script>	
+	
+	<!-- DataPicker javascripts -->
+	<script src="js/datapicker/bootstrap-datepicker.js"></script>
+
+	<!-- Scripts personalizados para todas as página -->
+	<script src="js/main.js"></script>	
+	
+
+</body>
+</html>

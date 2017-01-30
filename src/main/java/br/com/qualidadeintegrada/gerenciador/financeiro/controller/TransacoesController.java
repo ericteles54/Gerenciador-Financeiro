@@ -66,7 +66,7 @@ public class TransacoesController {
 		meses = this.getMesDeTransacoes(transacoesUsuarioTodas);
 						
 		
-		ModelAndView mv = new ModelAndView("ListaTransacoes");
+		ModelAndView mv = new ModelAndView("transacoes");
 		mv.addObject("olaUsuario", olaUsuario);
 		mv.addObject("transacoes", transacoesUsuarioPorMes);
 		mv.addObject("contas", contasUsuario);
