@@ -7,25 +7,10 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"  />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-
-
-
-	<!-- Bootstrap/JQuery core CSS
-    ================================================== -->
-	<!-- Bootstrap CSS -->
-	<link href="css/bootstrap.min.css" rel="stylesheet" />
-
-	<!-- Bootstrap/JQuery core JavaScript
-    ================================================== -->
-	<!-- jQuery (necessario para os plugins Javascript do Bootstrap) -->
-	<script src="js/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	
-
 </head>				
 
-	<body>
-	
+	<body>	
+		
 	 	<div class="list-group">
         	<a class="list-group-item text-center active" data-remote="true" href="#" id="conta_0">
           		Todas as Contas
@@ -44,15 +29,14 @@
 	            <a href="#" class="list-group-item sub-item" data-parent="#sub_categoria_4" >SubSubPos4</a>
             </div>
 	 	</div>
-		<!-- 
+	 
 		<h3>Conta teste: <span th:text="${mesAnoSelecionado}"></span></h3>
+			
 		
-	
-	
 	<p th:each="contaInfoOnline : ${contasInfoOnline}"
-		th:text="${contaInfoOnline.saldoPeriodo}">Saldo da conta</p>
-	
- 	 -->
+		th:text="${contaInfoOnline.conta.nome} + ' Saldo Atual: ' + ${contaInfoOnline.conta.saldo} + ' Saldo Rec/Desp: ' + ${contaInfoOnline.saldoPeriodo}">Saldo da conta</p>
+	 
+ 	 
 	</body>
 
 	

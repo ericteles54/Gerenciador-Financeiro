@@ -72,6 +72,22 @@
 	<!-- PARTE PRINCIPAL DA PAGINA -->
 	<div class="container">
 	
+		
+		<!-- Insere a pagina Informacoes com os dados das contas saldo atual - receitas e despesas mes e saldo me --> 
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="panel panel-default">
+					
+					<div class="panel-heading">
+						<h3 class="panel-title">Resumo do mês</h3>
+					</div>
+			
+					<div class="panel-body" id="subViewDivInformacoesContas"></div>
+				</div>
+			</div>		
+		</div>
+		<!-- // Insere a pagina Informacoes com os dados das contas saldo atual - receitas e despesas mes e saldo me -->
+	
 	
 		<!-- Formulário para criação de nova transacao -->
 		<div class="row">
@@ -80,7 +96,7 @@
 				<div class="panel panel-default">
 					
 					<div class="panel-heading">
-						<h3 class="panel-title">Lista de transações</h3>
+						<h3 class="panel-title">Adicionar nova transação</h3>
 					</div>
 					
 					
@@ -157,14 +173,35 @@
 		
 		<!-- Tabela com informações de contas -->
 		<div class="row">
-			<div class="col-xs-12">			
+			<div class="col-xs-12">
+			
+				<div class="panel-heading">
+					<h3 class="panel-title">Selecione o período</h3>
 				
-				TABLE						
+					
+					<div class="form-group">
+				
+						<select id="selecionaMesAno" class="form-control" th:field="*{mes}" onchange="mostrarMesAnoSelecionado(this)">			 				
+			 				<option label="Selecione um mês" value="" selected="selected"></option>			 				
+			 				<option th:each="mes : ${meses}"
+			 						th:value="${mes.mesAnoString}"
+			 						th:text="${mes.mesNome}">
+			 				</option>
+			 			</select>			 			
+			 						
+					</div>
+				</div>		
+				
+				
+				<!-- Insere a pagina TabelaTransacoes com as transações do mes selecionado --> 
+				<div class="panel-body" id="subViewDivTabelaTransacoes"></div>
+				<!-- // Insere a pagina TabelaTransacoes com as transações do mes selecionado -->				
 				
 			</div>		
 			
 		</div>
-		<!-- // tabela de contas -->
+		<!-- // tabela de contas -->	
+		
 		
 	</div>
 	<!--  // PARTE PRINCIPAL DA PAGINA -->

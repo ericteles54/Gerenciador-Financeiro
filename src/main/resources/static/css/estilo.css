@@ -28,3 +28,17 @@ footer {
 .perso-navbar-saudacao {
         font-weight: 600;        
 }
+
+.perso-th-datatable {
+		font-weight: 700;		
+		text-align: center;
+}
+
+.perso-td-datatable {
+		text-align: center;
+}
+
+.perso-span-mesSelecionado-datatable {
+		font-weight: 600;
+		color: #990000;
+}

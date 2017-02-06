@@ -9,16 +9,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 
-
-		<!-- Bootstrap core JavaScript
-    ================================================== -->
-	<!-- jQuery (necessario para os plugins Javascript do Bootstrap) -->
-	<script src="js/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	
-	<script src="js/datatable/jquery.dataTables.min.js"></script>
-	<script src="js/datatable/dataTables.bootstrap.min.js"></script>
-	
 	
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -32,43 +22,39 @@
 	</script>
 </head>				
 
-
-	<h3><span th:text="${mesAnoSelecionado}"></span></h3>
-	<br />
-
-
-
+	<h4 style="text-align: center;">Transações: <span class="perso-span-mesSelecionado-datatable" th:text="${mesAnoSelecionado}"></span></h4>
+	
 	<table id="transacoes" class="table table-striped table-bordered" cellspacing="0" width="100%">
 		<thead>
 			<tr>						
-				<th>Data</th>
-				<th>Conta</th>
-				<th>Descrição</th>
-				<th>Valor</th>
-				<th>Tipo</th>
-				<th>Consolidada</th>
-				<th>Editar</th>
-				<th>Remover</th>						
+				<th class="perso-th-datatable">Data</th>
+				<th class="perso-th-datatable">Conta</th>
+				<th class="perso-th-datatable">Descrição</th>
+				<th class="perso-th-datatable">Valor</th>
+				<th class="perso-th-datatable">Tipo</th>
+				<th class="perso-th-datatable">Consolidada</th>
+				<th class="perso-th-datatable">Editar</th>
+				<th class="perso-th-datatable">Remover</th>						
 			</tr>						
 		</thead>
 		<tbody>		
-			<tr th:each="transacao : ${transacoes}" th:style="'color:' + ${transacao.corTransacao}">						
-				<td th:text="${{transacao.data}}"></td>
-				<td th:text="${transacao.conta.nome}"></td>
+			<tr th:each="transacao : ${transacoes}" th:style="'color:' + ${transacao.corTransacao}">				
+				<td class="perso-td-datatable" th:text="${#dates.format(transacao.data, 'dd/MM/yyyy')}"></td>
+				<td class="perso-td-datatable" th:text="${transacao.conta.nome}"></td>
 				<td th:text="${transacao.descricao}"></td>											
 				<td>R$ <span th:text="${transacao.valor}"></span></td>			
-				<td><img th:src="@{${transacao.imgTransacao}}" /></td>	
-				<td><img th:src="${transacao.consolidada} ? @{images/consolidada.png} : ''" /></td>
- 				<td>
+				<td class="perso-td-datatable"><img th:src="@{${transacao.imgTransacao}}" /></td>	
+				<td class="perso-td-datatable"><img th:src="${transacao.consolidada} ? @{images/consolidada.png} : ''" /></td>
+ 				<td class="perso-td-datatable">
 					<form method="POST" th:action="@{/editaTransacao}">
 						<input type="hidden" name="id" id="id" th:value="${transacao.id}" />
-						<button class="btn btn-primary" type="submit" name="submit" value="value">Editar</button>
+						<button class="btn btn-info btn-xs" type="submit" name="submit" value="value"><span class="glyphicon glyphicon-wrench"></span></button>
 					</form>
 				</td>
-				<td>
+				<td class="perso-td-datatable">
 					<form method="POST" th:action="@{/transacoes/delete}">
 						<input type="hidden" name="id" id="id" th:value="${transacao.id}" />
-						<button class="btn btn-primary" type="submit" name="submit" value="value">Remover</button>
+						<button class="btn btn-danger btn-xs" type="submit" name="submit" value="value"><span class="glyphicon glyphicon-trash"></span></button>
 					</form>
 				</td>								
 			</tr>
