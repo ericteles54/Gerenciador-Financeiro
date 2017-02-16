@@ -129,7 +129,7 @@ public class ContasController {
 					
 				} else if (transacao.getTipoTransacao().equals(TipoTransacao.RECEITA)) {
 					
-					receita = receita.add(transacao.getValor());					
+					receita = receita.add(transacao.getValor());
 				}
 				
 			}
@@ -145,6 +145,36 @@ public class ContasController {
 			contasInfoOnline.add(contaInfoOnline);
 			
 		}
+		
+		// Cria uma conta temporaria para calcular as receitas e despesas totais juntando todas as contas		
+		BigDecimal despesaPeriodo = new BigDecimal(0);
+		BigDecimal receitaPeriodo = new BigDecimal(0);			
+		BigDecimal saldoPeriodo = new BigDecimal(0);
+		BigDecimal saldoAtual = new BigDecimal(0);
+		for(ContaInfoOnline contaInfoOnlineTmp : contasInfoOnline) {
+			
+			despesaPeriodo = despesaPeriodo.add(contaInfoOnlineTmp.getDespesasPeriodo());
+			receitaPeriodo = receitaPeriodo.add(contaInfoOnlineTmp.getReceitasPeriodo());
+			saldoAtual = saldoAtual.add(contaInfoOnlineTmp.getConta().getSaldo());
+			
+		}
+		saldoPeriodo = receitaPeriodo.subtract(despesaPeriodo);
+		
+		Conta contaTotal = new Conta();
+		contaTotal.setId(0);
+		contaTotal.setUsuario(usuarioTmp);
+		contaTotal.setSaldo(saldoAtual);
+		contaTotal.setNome("Todas as Contas");
+		
+		ContaInfoOnline contaInfoOnlineTmp = new ContaInfoOnline();
+		contaInfoOnlineTmp.setConta(contaTotal);
+		contaInfoOnlineTmp.setDespesasPeriodo(despesaPeriodo);
+		contaInfoOnlineTmp.setReceitasPeriodo(receitaPeriodo);
+		contaInfoOnlineTmp.setSaldoPeriodo(saldoPeriodo);
+		
+		contasInfoOnline.add(contaInfoOnlineTmp);
+		
+		
 		
 		
 		Locale localeBR = new Locale("pt", "BR");

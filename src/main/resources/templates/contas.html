@@ -6,7 +6,7 @@
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Template bootstrap teste</title>
+<title>Suas contas</title>
 
 <!-- Fonte lato do google web fonts -->
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700"
@@ -78,7 +78,7 @@
 				<div class="panel panel-default">
 					
 					<div class="panel-heading">
-						<h3 class="panel-title">Lista de contas</h3>
+						<h3 class="panel-title perso-panel-title">Adicionar conta</h3>
 					</div>
 					
 					
@@ -104,45 +104,55 @@
 		
 		
 		
+		
 		<!-- Tabela com informações de contas -->
 		<div class="row">
-			<div class="col-xs-12">			
-				
-				<table id="contas" class="table table-striped table-bordered" cellspacing="0" width="100%">
-					<thead>
-						<tr>
-							<th class="perso-th-datatable">Nome</th>
-							<th class="perso-th-datatable">Saldo</th>
-							<th class="perso-th-datatable">Editar</th>
-							<th  class="perso-th-datatable">Remover</th>
-						</tr>
-					</thead>
-
-					<tbody>
-						<tr th:each="conta : ${contas}">
-							<td th:text="${conta.nome}"></td>
-							<td>R$ <span th:text="${conta.saldo}"></span></td>
-							<td class="perso-td-datatable">
-								<form method="POST" th:action="@{/editaConta}">
-									<input type="hidden" name="id" id="id" th:value="${conta.id}" />
-									<button class="btn btn-info btn-xs" type="submit" name="submit"
-										value="value"><span class="glyphicon glyphicon-wrench"></span></button>
-								</form>
-							</td>
-							<td class="perso-td-datatable">
-								<form method="POST" th:action="@{/contas/deleta}">
-									<input type="hidden" name="id" id="id" th:value="${conta.id}" />
-									<button class="btn btn-danger btn-xs" type="submit" name="submit"
-										value="value"><span class="glyphicon glyphicon-trash"></span></button>
-								</form>
-							</td>
-						</tr>
-					</tbody>
-				</table>							
-				
-			</div>		
-			
-		</div>
+			<div class="col-xs-12">
+		
+				<div class="panel panel-default">
+							
+					<div class="panel-heading">
+						<h3 class="panel-title perso-panel-title">Contas cadastradas</h3>
+					</div>
+								
+					<div class="panel-body">			
+					
+						<table id="contas" class="table table-striped table-bordered" cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th class="perso-th-datatable">Nome</th>
+									<th class="perso-th-datatable">Saldo</th>
+									<th class="perso-th-datatable">Editar</th>
+									<th  class="perso-th-datatable">Remover</th>
+								</tr>
+							</thead>
+		
+							<tbody>
+								<tr th:each="conta : ${contas}">
+									<td th:text="${conta.nome}"></td>
+									<td>R$ <span th:text="${conta.saldo}"></span></td>
+									<td class="perso-td-datatable">
+										<form method="POST" th:action="@{/editaConta}">
+											<input type="hidden" name="id" id="id" th:value="${conta.id}" />
+											<button class="btn btn-info btn-xs" type="submit" name="submit"
+												value="value"><span class="glyphicon glyphicon-wrench"></span></button>
+										</form>
+									</td>
+									<td class="perso-td-datatable">
+										<form method="POST" th:action="@{/contas/deleta}">
+											<input type="hidden" name="id" id="id" th:value="${conta.id}" />
+											<button class="btn btn-danger btn-xs" type="submit" name="submit"
+												value="value"><span class="glyphicon glyphicon-trash"></span></button>
+										</form>
+									</td>
+								</tr>
+							</tbody>
+						</table>			
+					
+					</div>
+				</div>			
+			</div>	
+		</div>	
 		<!-- // tabela de contas -->
 		
 	</div>

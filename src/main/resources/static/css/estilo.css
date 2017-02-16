@@ -38,7 +38,36 @@ footer {
 		text-align: center;
 }
 
+.perso-span-mesSelecionado {
+		font-weight: 700;		
+}
+
 .perso-span-mesSelecionado-datatable {
 		font-weight: 600;
 		color: #990000;
 }
+
+.perso-span-font-forte {
+		font-weight: 700;		
+}
+
+.perso-span-font-media {
+		font-weight: 400;		
+}
+
+.perso-text-color-positivo {
+		font-weight: 600;
+		color: #006600;
+}
+
+.perso-text-color-negativo {
+		font-weight: 600;
+		color: #660000;
+}
+
+.perso-panel-title {
+		font-weight: 700;
+		font-size: medium;
+		text-align: center;	
+}
+

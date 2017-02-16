@@ -49,6 +49,9 @@ public class Transacao {
 	private boolean consolidada;
 	
 	@NotNull
+	private boolean aplicacao;
+	
+	@NotNull
 	@ManyToOne
 	private Conta conta;
 	
@@ -133,6 +136,15 @@ public class Transacao {
 
 	public void setConsolidada(boolean consolidada) {
 		this.consolidada = consolidada;
+	}
+	
+	
+	public boolean isAplicacao() {
+		return aplicacao;
+	}
+
+	public void setAplicacao(boolean aplicacao) {
+		this.aplicacao = aplicacao;
 	}
 
 	public Conta getConta() {
