@@ -6,7 +6,7 @@
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Suas contas</title>
+<title>Usuários</title>
 
 <!-- Fonte lato do google web fonts -->
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700"
@@ -37,8 +37,7 @@
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="perso-navbar-logomarca navbar-brand" href="#">Gerenciador
-					Financeiro</a>
+				<a class="perso-navbar-logomarca navbar-brand" href="#">Gerenciador Financeiro</a>
 			</div>
 
 
@@ -71,24 +70,32 @@
 	<div class="container">
 	
 	
-		<!-- Formulário para criação de nova conta -->
+		<!-- Formulário para criação de novo usuário -->
 		<div class="row">
 			<div class="col-xs-12">
 				
 				<div class="panel panel-default">
 					
 					<div class="panel-heading">
-						<h3 class="panel-title perso-panel-title">Adicionar conta</h3>
+						<h3 class="panel-title perso-panel-title">Adicionar usuário</h3>
 					</div>
 					
 					
 					<div class="panel-body">
 					
-						<form class="form-inline" method="POST" th:object="${conta}" th:action="@{/contas}">
-	
+						<form class="form-inline" method="POST" th:object="${usuario}" th:action="@{/usuarios/novo}">
+								
 							<div class="form-group">
-								<label for="idNome" class="control-label">Nome</label>								
-								<input type="text" class="form-control" placeholder="Nome" th:field="*{nome}" id="idNome" />							
+								<label for="idUsername" class="control-label">Username</label>								
+								<input type="text" class="form-control" placeholder="Username" th:field="*{username}" id="idUsername" />							
+							</div>
+							<div class="form-group">
+								<label for="idPassword" class="control-label">Password</label>								
+								<input type="password" class="form-control" placeholder="Password" th:field="*{password}" id="idPassword" />							
+							</div>
+							<div class="form-group">																
+								<input type="checkbox" th:field="*{enabled}" id="idEnable" />
+								<label for="idEnable" class="control-label">Ativado</label>							
 							</div>
 							
 							<button class="btn btn-primary" type="submit">Adicionar</button>
@@ -100,47 +107,49 @@
 				</div>
 			</div>
 		</div>
-		<!-- // Formulário para criação de nova conta -->
+		<!-- // Formulário para criação de novo usuário -->
 		
 		
 		
 		
-		<!-- Tabela com informações de contas -->
+		<!-- Tabela com informações de usuários -->
 		<div class="row">
 			<div class="col-xs-12">
 		
 				<div class="panel panel-default">
 							
 					<div class="panel-heading">
-						<h3 class="panel-title perso-panel-title">Contas cadastradas</h3>
+						<h3 class="panel-title perso-panel-title">Usuários cadastrados</h3>
 					</div>
 								
 					<div class="panel-body">			
 					
 						<table id="contas" class="table table-striped table-bordered" cellspacing="0" width="100%">
 							<thead>
-								<tr>
-									<th class="perso-th-datatable">Nome</th>
-									<th class="perso-th-datatable">Saldo</th>
+								<tr>									
+									<th class="perso-th-datatable">Username</th>
+									<th class="perso-th-datatable">Password</th>
+									<th class="perso-th-datatable">Ativado</th>
 									<th class="perso-th-datatable">Editar</th>
 									<th  class="perso-th-datatable">Remover</th>
 								</tr>
 							</thead>
 		
 							<tbody>
-								<tr th:each="conta : ${contas}">
-									<td th:text="${conta.nome}"></td>
-									<td>R$ <span th:text="${conta.saldo}"></span></td>
+								<tr th:each="usuario : ${usuarios}">
+									<td th:text="${usuario.username}"></td>
+									<td th:text="${usuario.password}"></td>
+									<td class="perso-td-datatable"><img th:src="${usuario.enabled} ? @{images/checked.png} : ''" /></td>
 									<td class="perso-td-datatable">
-										<form method="POST" th:action="@{/editaConta}">
-											<input type="hidden" name="id" id="id" th:value="${conta.id}" />
+										<form method="POST" th:action="@{/editaUsuario}">
+											<input type="hidden" name="username" id="username" th:value="${usuario.username}" />
 											<button class="btn btn-info btn-xs" type="submit" name="submit"
 												value="value"><span class="glyphicon glyphicon-wrench"></span></button>
 										</form>
 									</td>
 									<td class="perso-td-datatable">
-										<form method="POST" th:action="@{/contas/deleta}">
-											<input type="hidden" name="id" id="id" th:value="${conta.id}" />
+										<form method="POST" th:action="@{/usuarios/deleta}">
+											<input type="hidden" name="username" id="username" th:value="${usuario.username}" />
 											<button class="btn btn-danger btn-xs" type="submit" name="submit"
 												value="value"><span class="glyphicon glyphicon-trash"></span></button>
 										</form>
@@ -153,7 +162,7 @@
 				</div>			
 			</div>	
 		</div>	
-		<!-- // tabela de contas -->
+		<!-- // tabela de usuários -->
 		
 	</div>
 	<!--  // PARTE PRINCIPAL DA PAGINA -->
@@ -171,11 +180,9 @@
 	<footer>
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-10">Sistema para controle de contas
-					pessoais.</div>
+				<div class="col-sm-10">Sistema para controle de contas pessoais.</div>
 				<div class="col-sm-2 text-right">
-					<small>Desenvolvido por :</small><br /> <strong>Eric
-						Teles Leite</strong>
+					<small>Desenvolvido por :</small><br /> <strong>Eric Teles Leite</strong>
 				</div>
 			</div>
 

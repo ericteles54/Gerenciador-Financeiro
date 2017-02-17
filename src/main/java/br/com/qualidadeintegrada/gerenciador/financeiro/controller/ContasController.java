@@ -51,7 +51,7 @@ public class ContasController {
 		
 		List<Conta> contasUsuario = new ArrayList<Conta>();
 		contasUsuario = this.contaService.buscaContasPorUsuario(usuarioTmp);
-		//contasUsuario = this.contaService.atualizaSaldoContas(contasUsuario);
+		
 		
 		ModelAndView mv = new ModelAndView("contas");
 		mv.addObject("olaUsuario", olaUsuario);

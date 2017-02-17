@@ -6,7 +6,7 @@
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Edita conta</title>
+<title>Edita Usuário</title>
 
 <!-- Fonte lato do google web fonts -->
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700"
@@ -36,8 +36,7 @@
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="perso-navbar-logomarca navbar-brand" href="#">Gerenciador
-					Financeiro</a>
+				<a class="perso-navbar-logomarca navbar-brand" href="#">Gerenciador Financeiro</a>
 			</div>
 
 
@@ -63,19 +62,20 @@
 
 			<div class="panel panel-default" style="margin: 10px">
 				<div class="panel-heading">
-					<h3 class="panel-title">Edição de conta</h3>
+					<h3 class="panel-title">Edição de usuário</h3>
 				</div>
 
 				<div class="panel-body">
-					<form class="form-inline" method="POST" th:object="${conta}"
-						th:action="@{/contas}" style="margin: 20px 0">
+					<form class="form-inline" method="POST" th:object="${usuario}"
+						th:action="@{/usuarios}" style="margin: 20px 0">
 
 						<div class="form-group">
 							
-							<input type="hidden" class="form-control" th:field="*{id}" />
-							<input type="text" class="form-control" th:field="*{nome}" />
-							<input type="text" class="form-control" th:field="*{saldo}" readonly="readonly" />
-				 			<input type="hidden" class="form-control" th:field="*{usuario.username}" />
+							<input type="text" class="form-control" th:field="*{username}" readonly="readonly" />
+							<input type="text" class="form-control" th:field="*{password}" />							
+							<input type="checkbox" id="idEnable" class="form-control" th:field="*{enabled}" />
+							<label for="idEnable" class="control-label">Ativado</label>		
+				 			
 			
 							<button type="submit" class="btn btn-primary">Alterar</button>
 						</div>

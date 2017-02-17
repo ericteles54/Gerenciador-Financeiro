@@ -49,9 +49,9 @@
 					<li><a href="#"></a></li>
 					<li><a class="perso-navbar-link" href="contas">Contas</a></li>
 					<li><a class="perso-navbar-link" href="transacoes">Transações</a></li>
-					<li><a class="perso-navbar-link" href="#usuario">Usuário</a></li>										
+					<li><a class="perso-navbar-link" href="usuarios">Usuários</a></li>										
 					<li><a class="perso-navbar-link" href="logout">Sign out</a></li>
-					<li><a class="perso-navbar-saudacao" href="#" th:text="${olaUsuario}"></a></li>
+					<li><a class="perso-navbar-saudacao" href="usuarios" th:text="${olaUsuario}"></a></li>
 				</ul>
 			</div>
 		</div>
@@ -70,9 +70,10 @@
 	<div class="container">
 	
 		
-		<!-- Insere a pagina Informacoes com os dados das contas saldo atual - receitas e despesas mes e saldo me --> 
+		 
 		<div class="row">
-			<div class="col-xs-12">
+			<!-- Insere a pagina Informacoes com os dados das contas saldo atual - receitas e despesas mes e saldo me -->
+			<div class="col-md-9">
 				<div class="panel panel-default">
 					
 					<div class="panel-heading">
@@ -81,21 +82,30 @@
 			
 					<div class="panel-body" id="subViewDivInformacoesContas"></div>
 				</div>
-			</div>		
+			</div>
+			<!-- // Insere a pagina Informacoes com os dados das contas saldo atual - receitas e despesas mes e saldo me -->
+	
+	
+			<!-- Chamada para modal de formulário para criação de nova transacao -->
+			<div class="col-md-3">
+				<div class="panel panel-default">
+					
+					<div class="panel-heading">
+						<h3 class="panel-title perso-panel-title">Adicionar transações</h3>								
+					</div>
+					
+					<div class="panel-body">
+						<button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#adicionarTransacao">
+							<img src="images/add_transacao.png" />Adicionar
+						</button>
+					</div>
+										
+				</div>
+			</div>
+			<!-- Chamada para modal de formulário para criação de nova transacao -->
 		</div>
-		<!-- // Insere a pagina Informacoes com os dados das contas saldo atual - receitas e despesas mes e saldo me -->
-	
-	
-		<hr />
-	
-		<!-- Chamada para modal de formulário para criação de nova transacao -->
 		
-		<button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#adicionarTransacao">Adicionar Transação</button>
-		
-		<!-- Chamada para modal de formulário para criação de nova transacao -->
-		
-		
-		<hr />
+
 		
 		
 		<!-- Tabela com informações de contas -->
@@ -162,7 +172,7 @@
 	
 	
 	
-	<!--  JANELA MODAL -->		
+	<!--  JANELA MODAL ADICIONAR TRANSACAO -->		
     <div class="modal fade" id="adicionarTransacao" role="dialog" tabindex="-1" aria-hidden="true">
     
 	    <style>
@@ -186,65 +196,63 @@
                            <form method="POST" th:object="${transacao}" th:action="@{/transacoes}">
 
                             <div class="modal-body">
-                                   
-                            	<div class="container col-sm-12">				                 
-					                 <div class="row">
-					              
-										<div class="col-sm-12">				                		
-			                		
-			                			<div class="form-group">
-					                		<label for="idConta" class="control-label">Conta</label>
-											<select class="form-control" th:field="*{conta}" id="idConta">
-												<option th:each="conta : ${contas}"
-													th:value="${conta.id}"
-													th:text="${conta.nome}">
-												</option>
-											</select>
-					                	</div>
-					        			<div class="form-group">
-											<label for="idData" class="control-label">Data</label>
-											<input type="text" class="form-control" id="idData" placeholder="Data" data-date-format="yyyy/mm/dd" th:field="*{data}" />
-										</div>
-										
-										<div class="form-group">
-											<label for="idDescricao" class="control-label">Descrição</label>
-											<input type="text" class="form-control" id="idDescricao" placeholder="Descrição" th:field="*{descricao}" />
-										</div>
-										
-										<div class="form-group">
-											<label for="idValor" class="control-label">Valor</label>
-											<input type="text" class="form-control" id="idValor" placeholder="Valor" th:field="*{valor}" />
-										</div>
-										
-										<div class="form-group">
-											<label for="idTipo" class="control-label">Tipo</label>
-											<select class="form-control" th:field="*{tipoTransacao}" id="idTipo">
-									 			<option th:each="tipoTransacao : ${tiposTransacao}"
-								 					th:value="${tipoTransacao}"
-								 					th:text="${tipoTransacao.descricao}">
-									 			</option>
-									 		</select>
-								 		</div>			 		
-								 		
-								 		
-								 		<div class="form-group">							 		
-									 		<label for="idConsolidada" class="control-label">Consolidada</label>		
-									 		<input type="checkbox" th:field="*{consolidada}" id="idConsolidada" style="height: 26px; width:26px;"/>					 				 									 		
-								 		</div>
-								 		
-								 		<div class="form-group">							 		
-									 		<label for="idAplicacao" class="control-label">Aplicação</label>		
-									 		<input type="checkbox" th:field="*{aplicacao}" id="idAplicacao" style="height: 26px; width:26px;"/>					 				 									 		
-								 		</div>
-								 		
-								 		<div class="form-group">
-									 		<label for="idRepetir" class="control-label">Repetir</label>
-									 		<input type="text" class="form-control" id="idRepetir" placeholder="Repetições" th:field="*{repeticoes}" />
-								 		</div>												
-										</div>								
-													                						                	
-					                 </div>					               
-					            </div>
+                            			                 
+				                 <div class="row">					              
+									<div class="col-sm-12">				                		
+		                		
+		                			<div class="form-group">
+				                		<label for="idConta" class="control-label">Conta</label>
+										<select class="form-control" th:field="*{conta}" id="idConta">
+											<option th:each="conta : ${contas}"
+												th:value="${conta.id}"
+												th:text="${conta.nome}">
+											</option>
+										</select>
+				                	</div>
+				        			<div class="form-group">
+										<label for="idData" class="control-label">Data</label>
+										<input type="text" class="form-control" id="idData" placeholder="Data" data-date-format="yyyy/mm/dd" th:field="*{data}" />
+									</div>
+									
+									<div class="form-group">
+										<label for="idDescricao" class="control-label">Descrição</label>
+										<input type="text" class="form-control" id="idDescricao" placeholder="Descrição" th:field="*{descricao}" />
+									</div>
+									
+									<div class="form-group">
+										<label for="idValor" class="control-label">Valor</label>
+										<input type="text" class="form-control" id="idValor" placeholder="Valor" th:field="*{valor}" />
+									</div>
+									
+									<div class="form-group">
+										<label for="idTipo" class="control-label">Tipo</label>
+										<select class="form-control" th:field="*{tipoTransacao}" id="idTipo">
+								 			<option th:each="tipoTransacao : ${tiposTransacao}"
+							 					th:value="${tipoTransacao}"
+							 					th:text="${tipoTransacao.descricao}">
+								 			</option>
+								 		</select>
+							 		</div>			 		
+							 		
+							 		
+							 		<div class="form-group">									 				
+								 		<input type="checkbox" th:field="*{consolidada}" id="idConsolidada" />
+								 		<label for="idConsolidada" class="control-label">Consolidada</label>					 				 									 		
+							 		</div>
+							 		
+							 		<div class="form-group">								 				
+								 		<input type="checkbox" th:field="*{aplicacao}" id="idAplicacao"/>
+								 		<label for="idAplicacao" class="control-label">Aplicação</label>									 							 				 									 		
+							 		</div>
+							 		
+							 		<div class="form-group">
+								 		<label for="idRepetir" class="control-label">Repetir</label>
+								 		<input type="text" class="form-control" id="idRepetir" placeholder="Repetições" th:field="*{repeticoes}" />
+							 		</div>												
+									</div>								
+												                						                	
+				                 </div>					               
+
                             </div>
 
                             <div class="modal-footer">
@@ -252,12 +260,11 @@
                                     <button type="submit" class="btn btn-primary">Adicionar</button>
                             </div>                         
                            
-                           </form>
-                           
+                         </form>                           
                    </div>
             </div>            
     </div>    
-    <!--  // JANELA MODAL -->
+    <!--  // JANELA MODAL ADICIONAR TRANSACAO -->
 
 
 

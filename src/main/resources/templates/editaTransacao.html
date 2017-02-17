@@ -1,92 +1,61 @@
 <!DOCTYPE html>
-<html lang="pt-br" 
+<html lang="pt-br"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
-
 <head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Suas transações</title>
 
-	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge"  />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	
-	<title>Edita tansação</title>
-	
-	
-	<!-- Bootstrap/JQuery core CSS
-    ================================================== -->	
-	<!-- Bootstrap CSS -->
-	<link href="css/bootstrap.min.css" rel="stylesheet" />
-	
-	<!-- Custom styles for this template -->
-	<link href="css/navbar-fixed-top.css" rel="stylesheet" />
-	
-	<!-- Custom styles for Datapicker -->
-	<link href="css/datapicker/datepicker.css" rel="stylesheet" />
+<!-- Fonte lato do google web fonts -->
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700"
+	rel="stylesheet" />
 
+<!-- Import do bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet" />
 
-	<!-- Bootstrap/JQuery core JavaScript
-    ================================================== -->
-	<!-- jQuery (necessario para os plugins Javascript do Bootstrap) -->
-	<script src="js/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	
-	<script src="js/datapicker/bootstrap-datepicker.js"></script>	
-	
-		
-	<script type="text/javascript">
-		$(document).ready(function () {
-	        $('#transacaoData').datepicker({
-	            format: "yyyy/mm/dd",
-	            language: "pt-BR",
-	            autoclose: true,
-	        }).on('changeDate', function (ev) {
-	        	$(this).datepicker('hide');
-	        });
-	   	});
-	</script>
+<!-- Folha de estilos personalizada -->
+<link href="css/estilo.css" rel="stylesheet" />
+
+<!-- Css do Datatable -->
+<link href="css/datatable/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+<!-- Css do Datapicker -->
+<link href="css/datapicker/datepicker.css" rel="stylesheet" />
 
 </head>
 
 <body>
 
-	<!-- Fixed navbar -->
-	<nav class="navbar navbar-default navbar-fixed-top">
+	<!-- menu da aplicação -->
+	<nav
+		class="navbar navbar-default navbar-fixed-top perso-navbar-backgrond">
+
 		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
+			<div class="navbar navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#idMenuNavegacao">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Gerenciador Financeiro</a>
+				<a class="perso-navbar-logomarca navbar-brand" href="#">Gerenciador Financeiro</a>
 			</div>
-			<div id="navbar" class="navbar-collapse collapse">
-				<ul class="nav navbar-nav">
-					<li><a href="/contas">Contas</a></li>
-					<li><a href="/transacoes">Transacoes</a></li>					
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">Dropdown <span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="#">Action</a></li>
-							<li><a href="#">Another action</a></li>
-							<li><a href="#">Something else here</a></li>
-							<li role="separator" class="divider"></li>
-							<li class="dropdown-header">Nav header</li>
-							<li><a href="#">Separated link</a></li>
-							<li><a href="#">One more separated link</a></li>
-						</ul></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">					
-					<li><a href="#" th:text="${olaUsuario}"></a></li>		
-					<li><a href="./logout">Sign out</a></li>
+
+
+			<div class="collapse navbar-collapse" id="idMenuNavegacao">				
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"></a></li>
+					<li><a class="perso-navbar-link" href="contas">Contas</a></li>
+					<li><a class="perso-navbar-link" href="transacoes">Transações</a></li>
+					<li><a class="perso-navbar-link" href="usuarios">Usuários</a></li>										
+					<li><a class="perso-navbar-link" href="logout">Sign out</a></li>
+					<li><a class="perso-navbar-saudacao" href="usuarios" th:text="${olaUsuario}"></a></li>
 				</ul>
 			</div>
-			<!--/.nav-collapse -->
 		</div>
 	</nav>
+	<!-- // do menu da aplicação -->
 
 	<div class="container">		
 
@@ -131,8 +100,8 @@
 												</option>
 											</select>					
 							     	   </td>
-								   	   <td>				
-											<input type="text" class="form-control" id="transacaoData" placeholder="Data" data-date-format="yyyy/mm/dd" th:field="*{data}" style="width:100px;" />
+								   	   <td>											
+											<input type="text" class="form-control" id="idData" placeholder="Data" data-date-format="yyyy/mm/dd" th:field="*{data}" style="width:100px;" />
 										</td>
 										<td>
 											<input type="text" class="form-control" placeholder="Descrição" th:field="*{descricao}" />
@@ -170,6 +139,24 @@
 		</div>
 	
   	</div><!-- /container -->
+  	
+  	 	
+  		
+  	
+  	<!-- Importação de scripts javascript padrões para o bootstrap -->
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+
+
+	<!-- Datatable javascripts -->
+	<script src="js/datatable/jquery.dataTables.min.js"></script>
+	<script src="js/datatable/dataTables.bootstrap.min.js"></script>	
+	
+	<!-- DataPicker javascripts -->
+	<script src="js/datapicker/bootstrap-datepicker.js"></script>
+
+	<!-- Scripts personalizados para todas as página --> 
+	<script src="js/main.js"></script>	
 
 </body>
 </html>
