@@ -32,6 +32,11 @@ import br.com.qualidadeintegrada.gerenciador.financeiro.services.UsuarioService;
 @RequestMapping("/contas")
 public class ContasController {
 	
+	private static boolean mensagemSuccessAtiva = false;
+	private static boolean mensagemWarningAtiva = false;
+	private static String mensagemAlert = new String();
+	
+	
 	@Autowired
 	private ContaService contaService;
 	
@@ -55,8 +60,17 @@ public class ContasController {
 		
 		ModelAndView mv = new ModelAndView("contas");
 		mv.addObject("olaUsuario", olaUsuario);
+		mv.addObject("mensagemSuccessAtiva", ContasController.mensagemSuccessAtiva);
+		mv.addObject("mensagemWarningAtiva", ContasController.mensagemWarningAtiva);
+		mv.addObject("mensagemAlert", ContasController.mensagemAlert);
 		mv.addObject("contas", contasUsuario);
 		mv.addObject(new Conta());
+		
+		
+		// Limpa variaveis de mensagem após serem colocadas no objeto ModelAndView
+		ContasController.mensagemSuccessAtiva = false;
+		ContasController.mensagemWarningAtiva = false;
+		ContasController.mensagemAlert = new String();
 		
 		return mv;
 	}
@@ -74,15 +88,33 @@ public class ContasController {
 				
 		this.contaService.salva(conta);
 		
+		
+		ContasController.mensagemSuccessAtiva = true;
+		ContasController.mensagemAlert = "Conta " + conta.getNome() + " criada com sucesso!";
+		
+		
 		return "redirect:/contas";
 	}
 	
 	@RequestMapping(value = "/deleta", method = RequestMethod.POST)
-	public String deleta(@RequestParam("id")String id) {
+	public String deleta(@RequestParam("id")String id) {		
 		
-		this.contaService.deleta(Long.parseLong(id));
+		if(this.contaService.deleta(Long.parseLong(id))) {
+			
+			// Conta deletada com sucesso
+			ContasController.mensagemSuccessAtiva = true;
+			ContasController.mensagemAlert = "Conta deletada com sucesso!";
+			return "redirect:/contas";
+			
+		} else {
+			
+			// Erro ao deletar conta
+			ContasController.mensagemWarningAtiva = true;
+			ContasController.mensagemAlert = "Erro ao deletar conta. Entre em contato com o administrador.";
+			return "redirect:/contas";
+			
+		}	
 		
-		return "redirect:/contas";
 	}
 	
 	@RequestMapping(value = "/infoContasUsuario", method = RequestMethod.GET)

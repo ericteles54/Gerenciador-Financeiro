@@ -34,8 +34,20 @@ public class ContaService {
 		this.contasDAO.save(conta);
 	}
 	
-	public void deleta(Long contaId) {
+	public boolean deleta(Long contaId) {
+		
+		Conta conta = this.contasDAO.findOne(contaId);
+		
+		List<Transacao> transacoes = new ArrayList<Transacao>();
+		transacoes = transacaoService.buscaTransacoesPorConta(conta);
+		
+		for(Transacao transacao : transacoes) {
+			this.transacaoService.deleta(transacao.getId());
+		}
+		
 		this.contasDAO.delete(contaId);
+		
+		return true;
 	}
 	
 	
