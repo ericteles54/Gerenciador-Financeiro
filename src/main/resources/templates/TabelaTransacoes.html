@@ -34,6 +34,7 @@
 				<th class="perso-th-datatable">Tipo</th>
 				<th class="perso-th-datatable">Consolidada</th>
 				<th class="perso-th-datatable">Aplic.</th>
+				<th class="perso-th-datatable">Transf.</th>
 				<th class="perso-th-datatable">Editar</th>
 				<th class="perso-th-datatable">Remover</th>						
 			</tr>						
@@ -47,6 +48,7 @@
 				<td class="perso-td-datatable"><img th:src="@{${transacao.imgTransacao}}" /></td>	
 				<td class="perso-td-datatable"><img th:src="${transacao.consolidada} ? @{images/checked.png} : ''" /></td>
 				<td class="perso-td-datatable"><img th:src="${transacao.aplicacao} ? @{images/checked.png} : ''" /></td>
+				<td class="perso-td-datatable"><img th:src="${transacao.transferencia} ? @{images/checked.png} : ''" /></td>
  				<td class="perso-td-datatable">
 					<form method="POST" th:action="@{/editaTransacao}">
 						<input type="hidden" name="id" id="id" th:value="${transacao.id}" />

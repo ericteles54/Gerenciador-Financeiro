@@ -117,9 +117,8 @@ public class TransacoesController {
 						
 		// Busca todas as transações do usuário
 		List<Transacao> transacoesUsuarioPorMes = new ArrayList<Transacao>();
-		List<Transacao> transacoesUsuarioTodas = new ArrayList<Transacao>();
-		for(Conta conta : contasUsuario) {
-			transacoesUsuarioTodas.addAll(this.transacaoService.buscaTransacoesPorConta(conta));			
+		
+		for(Conta conta : contasUsuario) {						
 			transacoesUsuarioPorMes.addAll(this.transacaoService.buscaTransacoesPorMesAnoConta(anoMes.getMes()+1, anoMes.getAno(), conta));
 		}
 		

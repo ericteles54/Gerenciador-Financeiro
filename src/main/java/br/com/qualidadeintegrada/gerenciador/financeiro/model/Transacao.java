@@ -52,6 +52,9 @@ public class Transacao {
 	private boolean aplicacao;
 	
 	@NotNull
+	private boolean transferencia;
+	
+	@NotNull
 	@ManyToOne
 	private Conta conta;
 	
@@ -63,7 +66,7 @@ public class Transacao {
 		
 	}
 	
-	public Transacao(BigDecimal valor, TipoTransacao tipoTransacao, String corTransacao, String imgTransacao, String descricao, Date data, boolean consolidada, Conta conta) {
+	public Transacao(BigDecimal valor, TipoTransacao tipoTransacao, String corTransacao, String imgTransacao, String descricao, Date data, boolean consolidada, boolean aplicacao, boolean transferencia, Conta conta) {
 		this.valor = valor;
 		this.tipoTransacao = tipoTransacao;
 		this.corTransacao = corTransacao;
@@ -71,6 +74,8 @@ public class Transacao {
 		this.descricao = descricao;
 		this.data = data;
 		this.consolidada = consolidada;
+		this.aplicacao = aplicacao;
+		this.transferencia = transferencia;
 		this.conta = conta;
 	}
 
@@ -145,6 +150,14 @@ public class Transacao {
 
 	public void setAplicacao(boolean aplicacao) {
 		this.aplicacao = aplicacao;
+	}
+	
+	public boolean isTransferencia() {
+		return transferencia;
+	}
+
+	public void setTransferencia(boolean transferencia) {
+		this.transferencia = transferencia;
 	}
 
 	public Conta getConta() {

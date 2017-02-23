@@ -46,15 +46,16 @@ function mostrarMesAnoSelecionado(mesAnoString) {
 	var index = mesAnoString.selectedIndex;
 	var valorMesAnoString = mesAnoString.options[index].value;		
 	
-	$.ajax({
-        type: "GET",
+	$.ajax({	
+		type: "GET",
         url: "/transacoes/mesAno",
         data: {"mesAnoString": valorMesAnoString},            
         success: function(response) {	    	            	
             $("#subViewDivTabelaTransacoes").html( response );
             mostrarInformacoesContasUsuario(valorMesAnoString);
         }
-    });			
+    });
+	
 }	   
 
 
@@ -77,4 +78,4 @@ function mostrarMesAnoSelecionadoInicializacaoPagina() {
             mostrarInformacoesContasUsuario(valorMesAnoString);
         }
 	});
-}	
+}

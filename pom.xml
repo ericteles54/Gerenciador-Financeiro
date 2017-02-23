@@ -5,7 +5,7 @@
 
 	<groupId>br.com.qualidadeintegrada</groupId>
 	<artifactId>gerenciador-financeiro</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>war</packaging>
 
 	<name>gerenciador-financeiro</name>
@@ -62,11 +62,14 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-        
-        <dependency>
+
+		<!-- Plugin para nao perder a sessao do usuario quando atualiza o codigo
+			util para usar durante o desenvolvimento -->        
+     <!--    <dependency>
         	<groupId>org.springframework.boot</groupId>
         	<artifactId>spring-boot-devtools</artifactId>
         </dependency>
+     -->
 	</dependencies>
 
 	<build>

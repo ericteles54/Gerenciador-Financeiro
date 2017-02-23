@@ -21,11 +21,11 @@
 <!-- Css do Datatable -->
 <link href="css/datatable/dataTables.bootstrap.min.css" rel="stylesheet" />
 
+
 </head>
 
+
 <body>
-
-
 	<!-- menu da aplicação -->
 	<nav
 		class="navbar navbar-default navbar-fixed-top perso-navbar-backgrond">
@@ -58,11 +58,7 @@
 
 
 
-
-
-
-
-
+	
 
 
 
@@ -87,6 +83,23 @@
             	<strong>Warning! </strong><span th:text="${mensagemAlert}"></span>
             </div>
         </div>
+        
+        
+               
+        <!-- Insere a pagina Informacoes com grafico de receitas/despesas de período -->
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						
+						<div class="panel-heading">
+							<h3 class="panel-title perso-panel-title">Gráfico</h3>
+						</div>
+				
+						<div class="panel-body" id="subViewDivGraficoContas"></div>
+					</div>
+				</div>
+			</div>
+		<!-- // Insere a pagina Informacoes com grafico de receitas/despesas de período -->
 	
 	
 		<!-- Formulário para criação de nova conta -->
@@ -214,6 +227,10 @@
 
 	<!-- Scripts personalizados para todas as página -->
 	<script src="js/main.js"></script>
+			
+	<!-- Script para montar grafico com receitas e despesas das contas -->
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script src="js/graficoContas.js"></script>
 
 </body>
 </html>

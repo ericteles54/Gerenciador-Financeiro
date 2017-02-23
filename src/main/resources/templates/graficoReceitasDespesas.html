@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br" 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"  />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+	
+	
+	
+</head>				
+
+	<body>	
+	
+	 	<div id="chart_div" style="width: 100%; height: 500px;"></div>
+	 	
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			$(document).ready(function(){
+							
+				var arrayMesesGrafico=[[${totaisMesesGrafico}]];
+				var dados = [];
+				dados.push(['mesAno', 'Receitas', 'Despesas', 'Saldo:Rec/Desp', 'Aplicação']);
+				for(var i = 0; i < arrayMesesGrafico.length; i++) {
+					
+					dados.push([arrayMesesGrafico[i].mesAno, arrayMesesGrafico[i].receitasPeriodo, arrayMesesGrafico[i].despesasPeriodo, arrayMesesGrafico[i].saldoPeriodo, arrayMesesGrafico[i].aplicacaoPeriodo]);
+					
+				}
+							
+					
+				google.charts.load('current', {'packages':['corechart']});
+				google.charts.setOnLoadCallback(drawChart);
+				
+				function drawChart() {
+						
+					var data = google.visualization.arrayToDataTable(dados);
+					
+					var options = {
+					  title: 'Período de 1 ano',
+					  hAxis: {title: 'Meses',  titleTextStyle: {color: '#333'}},
+					  vAxis: {minValue: 0}
+					};
+					
+					var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+					chart.draw(data, options);	  
+				  
+				}
+				
+				
+			});
+			/*]]>*/	
+		
+		</script>
+ 	 
+	</body>
+
+</html>
