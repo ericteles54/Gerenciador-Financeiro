@@ -6,7 +6,6 @@
 	<groupId>br.com.qualidadeintegrada</groupId>
 	<artifactId>gerenciador-financeiro</artifactId>
 	<version>1.0.0</version>
-	<packaging>war</packaging>
 
 	<name>gerenciador-financeiro</name>
 	<description>Gerenciador Financeiro Pessoal</description>
